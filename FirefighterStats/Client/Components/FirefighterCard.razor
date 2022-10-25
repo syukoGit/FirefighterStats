@@ -1,0 +1,24 @@
+﻿@using FirefighterStats.Shared.Firefighter
+@using FirefighterStats.Client.Helpers
+
+<div class="container">
+    <div class="top">
+        <img src="assets/firefighter-icon.png"
+             alt="FirefighterPicture"
+             id="firefighter-icon"/>
+        <p id="firefighter-name">@Firefighter.FirstName @Firefighter.LastName</p>
+    </div>
+    <div class="down">
+        <p><text class="title-descritpion">Career start:</text> @Firefighter.CareerStartDate.ToString("dd MMMM yyyy")</p>
+        <p><text class="title-descritpion">Fire station:</text> @Firefighter.FireStation</p>
+        <p><text class="title-descritpion">Rank:</text> @Firefighter.Rank.GetDisplayName()</p>
+        <p><text class="title-descritpion">Registration number:</text> @Firefighter.RegistrationNumber</p>
+    </div>
+</div>
+
+
+@code {
+
+    [Parameter]
+    public FirefighterDTO Firefighter { get; set; } = new();
+}

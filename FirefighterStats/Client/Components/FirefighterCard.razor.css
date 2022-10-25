@@ -1,0 +1,57 @@
+﻿.container {
+    border-radius: 20px;
+    box-shadow: 0 2px 21px #000000;
+    box-shadow: 0 2px 21px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: 300px;
+}
+
+.top {
+    align-items: center;
+    background-color: red;
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    margin: 0;
+}
+
+#firefighter-icon {
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 20%;
+    box-shadow: 0 2px 21px #000000;
+    box-shadow: 0 2px 21px rgba(0, 0, 0, 0.25);
+    height: 60px;
+    margin-top: 20px;
+}
+
+#firefighter-name {
+    color: white;
+    font-weight: bold;
+}
+
+.down {
+    background-color: white;
+    display: flex;
+    flex: 1 1 0;
+    flex-flow: column nowrap;
+    height: auto;
+    justify-content: space-between;
+    max-height: 150px;
+    padding: 20px 30px 20px 30px;
+}
+
+.down p {
+    font-size: 15px;
+    margin: 0;
+}
+
+.title-descritpion { font-weight: bold; }

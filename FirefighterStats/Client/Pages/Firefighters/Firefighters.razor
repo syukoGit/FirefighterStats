@@ -1,0 +1,33 @@
+﻿@page "/firefighters"
+@using FirefighterStats.Shared.Firefighter
+@using FirefighterStats.Client.Components
+@inject HttpClient Http
+
+<PageTitle>Firefighters</PageTitle>
+
+<h1>Firefighters</h1>
+
+<div id="firefighter-cards">
+    @if (_firefighters == null)
+    {
+        <SpinningLoading/>
+    }
+    else
+    {
+        @foreach (FirefighterDTO firefighter in _firefighters)
+        {
+            <FirefighterCard Firefighter="firefighter"/>
+        }
+    }
+</div>
+
+@code {
+
+    private FirefighterDTO[]? _firefighters;
+
+    /// <inheritdoc />
+    protected override async Task OnInitializedAsync()
+    {
+        _firefighters = await Http.GetFromJsonAsync<FirefighterDTO[]>("api/Firefighters");
+    }
+}
