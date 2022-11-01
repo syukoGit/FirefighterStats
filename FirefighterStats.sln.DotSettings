@@ -540,7 +540,7 @@
       &lt;/Entry.SortBy&gt;&#xD;
     &lt;/Entry&gt;&#xD;
     &lt;Entry DisplayName="All other members" /&gt;&#xD;
-    &lt;Entry DisplayName="Test Methods" Priority="100"&gt;&#xD;
+    &lt;Entry Priority="100" DisplayName="Test Methods"&gt;&#xD;
       &lt;Entry.Match&gt;&#xD;
         &lt;And&gt;&#xD;
           &lt;Kind Is="Method" /&gt;&#xD;
@@ -587,7 +587,7 @@
       &lt;/Entry.Match&gt;&#xD;
     &lt;/Entry&gt;&#xD;
     &lt;Entry DisplayName="All other members" /&gt;&#xD;
-    &lt;Entry DisplayName="Test Methods" Priority="100"&gt;&#xD;
+    &lt;Entry Priority="100" DisplayName="Test Methods"&gt;&#xD;
       &lt;Entry.Match&gt;&#xD;
         &lt;And&gt;&#xD;
           &lt;Kind Is="Method" /&gt;&#xD;
@@ -602,7 +602,7 @@
     &lt;/Entry&gt;&#xD;
   &lt;/TypePattern&gt;&#xD;
   &lt;TypePattern DisplayName="Default Pattern"&gt;&#xD;
-    &lt;Entry DisplayName="Public Enums" Priority="100"&gt;&#xD;
+    &lt;Entry Priority="100" DisplayName="Public Enums"&gt;&#xD;
       &lt;Entry.Match&gt;&#xD;
         &lt;And&gt;&#xD;
           &lt;Access Is="Public" /&gt;&#xD;
@@ -681,7 +681,7 @@
         &lt;Name /&gt;&#xD;
       &lt;/Entry.SortBy&gt;&#xD;
     &lt;/Entry&gt;&#xD;
-    &lt;Entry DisplayName="Public Delegates" Priority="100"&gt;&#xD;
+    &lt;Entry Priority="100" DisplayName="Public Delegates"&gt;&#xD;
       &lt;Entry.Match&gt;&#xD;
         &lt;And&gt;&#xD;
           &lt;Access Is="Public" /&gt;&#xD;
@@ -854,4 +854,9 @@
 	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/UserRules/=5f0fdb63_002Dc892_002D4d2c_002D9324_002D15c80b22a7ef/@EntryIndexedValue">&lt;Policy&gt;&lt;Descriptor Staticness="Instance" AccessRightKinds="Private, Protected, ProtectedInternal, Internal, Public, PrivateProtected" Description="Unity serialized field"&gt;&lt;ElementKinds&gt;&lt;Kind Name="UNITY_SERIALISED_FIELD" /&gt;&lt;/ElementKinds&gt;&lt;/Descriptor&gt;&lt;Policy Inspect="True" Prefix="" Suffix="" Style="AaBb" /&gt;&lt;/Policy&gt;</s:String>
 	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/UserRules/=c58ae9fc_002D9eb5_002D4f6b_002Da0dd_002Db82a41a23048/@EntryIndexedValue">&lt;Policy&gt;&lt;Descriptor Staticness="Static, Instance" AccessRightKinds="Private, Protected, ProtectedInternal, Internal, Public" Description="Enum"&gt;&lt;ElementKinds&gt;&lt;Kind Name="ENUM" /&gt;&lt;/ElementKinds&gt;&lt;/Descriptor&gt;&lt;Policy Inspect="True" Prefix="E" Suffix="" Style="AaBb" /&gt;&lt;/Policy&gt;</s:String>
 	<s:Boolean x:Key="/Default/CodeStyle/RazorCodeStyle/PreferQualifiedReference/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ECSharpKeepExistingMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ECSharpPlaceEmbeddedOnSameLineMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ECSharpUseContinuousIndentInsideBracesMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ESettingsUpgrade_002EAlwaysTreatStructAsNotReorderableMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ESettingsUpgrade_002EMigrateBlankLinesAroundFieldToBlankLinesAroundProperty/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/InstalledDictionaries/InstalledDictionaries/=dictionaries_005Cfr_005Cindex_002Edic/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

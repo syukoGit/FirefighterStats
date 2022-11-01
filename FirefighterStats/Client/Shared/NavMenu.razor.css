@@ -5,13 +5,20 @@
     height: 3.5rem;
 }
 
+.navbar {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: 10px;
+}
+
 .navbar-brand {
     color: white;
     font-size: 1.1rem;
 }
 
-.oi {
-    font-size: 1.1rem;
+.nav-icon {
+    font-size: 24px;
     top: -2px;
     vertical-align: text-top;
     width: 2rem;
@@ -21,7 +28,10 @@
     font-size: 0.9rem;
     padding-bottom: 0.5rem;
     text-decoration: none;
+    width: auto;
 }
+
+.nav-toggler { background-color: rgba(255, 255, 255, 0.1); }
 
 .nav-item:first-of-type { padding-top: 1rem; }
 
@@ -56,4 +66,8 @@
     .navbar-toggler { display: none; }
 
     .collapse { display: block; }
+}
+
+@media (max-width: 641px) {
+    .nav-toggler { display: none; }
 }

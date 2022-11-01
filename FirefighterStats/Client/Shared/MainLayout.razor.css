@@ -36,6 +36,11 @@
     .top-row.auths { justify-content: space-between; }
 
     .top-row a, .top-row .btn-link { margin-left: 0; }
+
+    .sidebar {
+        background-color: rgb(139, 8, 8);
+        background-image: none;
+    }
 }
 
 @media (min-width: 641px) {
