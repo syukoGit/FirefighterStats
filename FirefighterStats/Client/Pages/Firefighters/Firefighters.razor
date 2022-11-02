@@ -1,6 +1,11 @@
 ﻿@page "/firefighters"
+
 @using FirefighterStats.Shared.Firefighter
 @using FirefighterStats.Client.Components
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
+
 @inject HttpClient Http
 
 <PageTitle>Firefighters</PageTitle>
@@ -21,8 +26,8 @@
     }
 </div>
 
-@code {
-
+@code
+{
     private FirefighterDTO[]? _firefighters;
 
     /// <inheritdoc />
