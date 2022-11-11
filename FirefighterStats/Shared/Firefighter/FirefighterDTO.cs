@@ -6,9 +6,6 @@
 
 namespace FirefighterStats.Shared.Firefighter;
 
-using JetBrains.Annotations;
-
-[PublicAPI]
 public class FirefighterDTO
 {
     public DateTime CareerStartDate { get; set; }
@@ -17,7 +14,7 @@ public class FirefighterDTO
 
     public string? FirstName { get; set; }
 
-    public string Id { get; set; } = string.Empty;
+    public required string Id { get; set; }
 
     public string? LastName { get; set; }
 
