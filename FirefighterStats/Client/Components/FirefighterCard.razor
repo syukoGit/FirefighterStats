@@ -20,5 +20,8 @@
 @code {
 
     [Parameter]
-    public FirefighterDTO Firefighter { get; set; } = new();
+    public FirefighterDTO Firefighter { get; set; } = new()
+    {
+        Id = Guid.NewGuid().ToString(),
+    };
 }
