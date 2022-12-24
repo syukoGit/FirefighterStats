@@ -28,6 +28,6 @@ public class FirefightersController : ControllerBase
     [HttpGet]
     public IEnumerable<FirefighterDTO> Get()
     {
-        return _mapper.Map<List<FirefighterDTO>>(_database.Firefighters.ToList());
+        return _mapper.Map<List<FirefighterDTO>>(_database.Users.ToList());
     }
 }
