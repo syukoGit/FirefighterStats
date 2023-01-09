@@ -1,0 +1,89 @@
+﻿@using FirefighterStats.Client.Components.Inputs
+@using FirefighterStats.Client.Services
+@using FirefighterStats.Shared.Authentication
+
+@page "/authentication/login"
+
+@layout AuthenticationLayout
+
+@inject AuthenticationService AuthenticationService
+@inject NavigationManager Navigation
+
+<div class="page-content">
+    <div class="form-wrapper">
+        <h1>Login</h1>
+
+        @if (_error != null)
+        {
+            <ul class="errors">
+                <li>@_error</li>
+            </ul>
+        }
+
+        <EditForm Model="_loginDTO"
+                  OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator/>
+
+            <CustomInputText @bind-Value="_loginDTO.UserName"
+                             id="username-input"
+                             Label="Username"
+                             ValidationFor="@(() => _loginDTO.UserName)"/>
+
+            <CustomInputText @bind-Value="_loginDTO.Password"
+                             id="password-input"
+                             Label="Password"
+                             type="password"
+                             ValidationFor="@(() => _loginDTO.Password)"/>
+
+            <div class="input-checkbox">
+                <label for="remember-me-input">Remember me ?</label>
+                <InputCheckbox @bind-Value="_loginDTO.RememberMe"
+                               id="remember-me-input"/>
+            </div>
+
+            <div class="buttons">
+                <button type="submit">Log in</button>
+                <div class="divider"></div>
+                <div class="link-to-register">
+                    <p>New on FirefighterStats?</p>
+                    <a onclick="@(() => Navigation.NavigateTo("authentication/register"))">Create an account</a>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? ReturnUrl { get; set; }
+
+    private readonly LoginDTO _loginDTO = new();
+
+    private string? _error;
+
+    private async Task HandleValidSubmit()
+    {
+        _error = null;
+
+        try
+        {
+            string? error = await AuthenticationService.Login(_loginDTO);
+
+            if (string.IsNullOrEmpty(error))
+            {
+                Navigation.NavigateTo(ReturnUrl ?? "/");
+            }
+            else
+            {
+                _error = error;
+            }
+        }
+        catch (ApplicationException ex)
+        {
+            _error = ex.Message;
+        }
+    }
+
+}
