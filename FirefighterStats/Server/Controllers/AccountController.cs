@@ -50,7 +50,7 @@ public class AccountController : ControllerBase
             };
         }
 
-        return BadRequest("UserName or password is invalid");
+        return BadRequest("Username or password is invalid");
     }
 
     [HttpPost("register")]
@@ -94,6 +94,7 @@ public class AccountController : ControllerBase
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? string.Empty));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        return new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims, expires: DateTime.Now.AddHours(2), signingCredentials: credentials);
+        return new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims, expires: DateTime.Now.AddHours(2),
+                                    signingCredentials: credentials);
     }
 }
