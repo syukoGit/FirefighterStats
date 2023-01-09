@@ -8,9 +8,11 @@ namespace FirefighterStats.Shared.Authentication;
 
 using System.ComponentModel.DataAnnotations;
 using FirefighterStats.Shared.Firefighter;
+using FirefighterStats.Shared.ValidationAttributes;
 
 public class RegisterDTO
 {
+    [BeforeNow]
     public DateTime? CareerStartDate { get; set; }
 
     [Required]
@@ -28,6 +30,11 @@ public class RegisterDTO
 
     [Required]
     [DataType(DataType.Password)]
+    [MinLength(6, ErrorMessage = "Password must be at least 6 characters.")]
+    [RequiresLowercaseLetter]
+    [RequiresUppercaseLetter]
+    [RequiresDigit]
+    [RequiresNonAlphanumeric]
     public string Password { get; set; } = string.Empty;
 
     public EFirefighterRank? Rank { get; set; }
