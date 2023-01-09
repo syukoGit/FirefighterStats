@@ -7,7 +7,10 @@ html, body {
 
 h1:focus { outline: none; }
 
-a, .btn-link { color: #0071c1; }
+a, .btn-link {
+    color: #0071c1;
+    cursor: pointer;
+}
 
 .btn-primary {
     background-color: #1b6ec2;
