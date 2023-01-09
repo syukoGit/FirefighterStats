@@ -1,0 +1,52 @@
+﻿@using System.Linq.Expressions
+@using System.Diagnostics.CodeAnalysis
+
+@inherits InputBase<string?>
+
+<div class="input-group">
+    <input class="input @CssClass" id="@_id" type="@_inputType" @bind="@CurrentValue" @attributes="@AdditionalAttributes"/>
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+            <label class="placeholder" for="@_id">@Label</label>
+    }
+    @if (ValidationFor != null)
+    {
+        <ValidationMessage For="@ValidationFor"></ValidationMessage>
+    }
+</div>
+
+@code {
+
+    private object? _id;
+
+    private string _inputType = "text";
+
+    [Parameter]
+    public string? Label { get; set; }
+
+    [Parameter]
+    public Expression<Func<string?>>? ValidationFor { get; set; }
+
+    /// <inheritdoc />
+    protected override void OnInitialized()
+    {
+        if (AdditionalAttributes != null)
+        {
+            AdditionalAttributes.TryGetValue("id", out _id);
+
+            if (AdditionalAttributes.TryGetValue("type", out object? type) && type is "password")
+            {
+                _inputType = "password";
+            }
+        }
+    }
+
+    /// <inheritdoc />
+    protected override bool TryParseValueFromString(string? value, out string result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        result = value ?? string.Empty;
+        validationErrorMessage = null;
+        return true;
+    }
+
+}

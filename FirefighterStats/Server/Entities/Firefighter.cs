@@ -13,15 +13,15 @@ using Microsoft.AspNetCore.Identity;
 [UsedImplicitly]
 public class Firefighter : IdentityUser
 {
-    public DateTime CareerStartDate { get; set; }
+    public DateTime? CareerStartDate { get; set; }
 
-    public string FireStation { get; set; } = string.Empty;
+    public string? FireStation { get; set; }
 
-    public string? FirstName { get; set; }
+    public required string FirstName { get; set; }
 
-    public string? LastName { get; set; }
+    public required string LastName { get; set; }
 
-    public EFirefighterRank Rank { get; set; }
+    public EFirefighterRank? Rank { get; set; }
 
     public string? RegistrationNumber { get; set; }
 }
