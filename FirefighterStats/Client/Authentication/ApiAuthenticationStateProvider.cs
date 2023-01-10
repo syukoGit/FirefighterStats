@@ -6,6 +6,7 @@
 
 namespace FirefighterStats.Client.Authentication;
 
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.Json;
 using Blazored.LocalStorage;
@@ -13,51 +14,56 @@ using Microsoft.AspNetCore.Components.Authorization;
 
 public class ApiAuthenticationStateProvider : AuthenticationStateProvider
 {
+    private const string AuthenticationScheme = "bearer";
+
+    private const string AuthenticationType = "jwt";
+
     private const string AuthTokenExpirationLocalStorageKey = "authTokenExpiration";
 
     private const string AuthTokenLocalStorageKey = "authToken";
 
+    private const string ClaimNameType = "sub";
+
+    private readonly HttpClient _httpClient;
+
     private readonly ILocalStorageService _localStorage;
 
-    public ApiAuthenticationStateProvider(ILocalStorageService localStorage)
+    public ApiAuthenticationStateProvider(ILocalStorageService localStorage, HttpClient httpClient)
     {
         _localStorage = localStorage;
+        _httpClient = httpClient;
     }
 
     /// <inheritdoc />
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-        (string AuthToken, DateTime ExpirationDateTime)? authTokenAndExpiration = await GetAuthToken();
+        (string, DateTime)? authTokenAndExpiration = await GetAuthInfo();
 
         if (authTokenAndExpiration == null)
         {
             return new AuthenticationState(new ClaimsPrincipal());
         }
 
-        (string authToken, DateTime expirationDateTime) = authTokenAndExpiration.Value;
+        (string token, DateTime expiration) = authTokenAndExpiration.Value;
 
-        if (expirationDateTime <= DateTime.Now)
+        if (expiration <= DateTime.Now)
         {
-            await ClearAuthToken();
+            await ClearAuthInfo();
             return new AuthenticationState(new ClaimsPrincipal());
         }
 
-        var claimsIdentity = new ClaimsIdentity(ParseClaimsFromJwt(authToken), "jwt");
+        var claimsIdentity = new ClaimsIdentity(ParseClaimsFromJwt(token), AuthenticationType, ClaimNameType, ClaimsIdentity.DefaultRoleClaimType);
+
         var claims = new ClaimsPrincipal(claimsIdentity);
 
         return new AuthenticationState(claims);
     }
 
-    public async Task MarkUserAsAuthenticated(string username, string token, DateTime expiration)
+    public async Task MarkUserAsAuthenticated(string token, DateTime expiration)
     {
-        await SetAuthToken(token, expiration);
+        await SetAuthInfo(token, expiration);
 
-        Claim[] claims =
-        {
-            new (ClaimTypes.Name, username),
-        };
-
-        ClaimsIdentity claimsIdentity = new (claims, "apiAuth");
+        ClaimsIdentity claimsIdentity = new (ParseClaimsFromJwt(token), AuthenticationType, ClaimNameType, ClaimsIdentity.DefaultRoleClaimType);
 
         ClaimsPrincipal authenticatedUser = new (claimsIdentity);
         Task<AuthenticationState> authState = Task.FromResult(new AuthenticationState(authenticatedUser));
@@ -67,7 +73,7 @@ public class ApiAuthenticationStateProvider : AuthenticationStateProvider
 
     public async Task MarkUserAsLoggedOut()
     {
-        await ClearAuthToken();
+        await ClearAuthInfo();
 
         ClaimsPrincipal anonymousUser = new (new ClaimsIdentity());
         Task<AuthenticationState> authState = Task.FromResult(new AuthenticationState(anonymousUser));
@@ -126,28 +132,37 @@ public class ApiAuthenticationStateProvider : AuthenticationStateProvider
         return claims;
     }
 
-    private async Task ClearAuthToken()
+    private async Task ClearAuthInfo()
     {
         await _localStorage.RemoveItemsAsync(new[]
         {
             AuthTokenLocalStorageKey,
             AuthTokenExpirationLocalStorageKey,
         });
+
+        _httpClient.DefaultRequestHeaders.Authorization = null;
     }
 
-    private async Task<(string AuthToken, DateTime ExpirationDateTime)?> GetAuthToken()
+    private async Task<(string AuthToken, DateTime ExpirationDateTime)?> GetAuthInfo()
     {
         var authToken = await _localStorage.GetItemAsync<string?>(AuthTokenLocalStorageKey);
         var expiration = await _localStorage.GetItemAsync<DateTime?>(AuthTokenExpirationLocalStorageKey);
 
-        return authToken == null || expiration == null
-                   ? null
-                   : (authToken, expiration.Value);
+        if (string.IsNullOrEmpty(authToken) || expiration == null)
+        {
+            return null;
+        }
+
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(AuthenticationScheme, authToken);
+
+        return (authToken, expiration.Value);
     }
 
-    private async Task SetAuthToken(string authToken, DateTime expiration)
+    private async Task SetAuthInfo(string authToken, DateTime expiration)
     {
         await _localStorage.SetItemAsync(AuthTokenLocalStorageKey, authToken);
         await _localStorage.SetItemAsync(AuthTokenExpirationLocalStorageKey, expiration);
+
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(AuthenticationScheme, authToken);
     }
 }
