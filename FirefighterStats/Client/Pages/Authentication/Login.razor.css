@@ -56,8 +56,8 @@
     width: 100%;
 }
 
-.divider {
-    border: 1px solid var(--light-gray);
+.vertical-divider {
+    border-color: var(--light-gray);
     border-radius: 1px;
     margin: 5px 20px;
 }
