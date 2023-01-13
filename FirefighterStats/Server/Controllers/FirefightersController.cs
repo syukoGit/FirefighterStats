@@ -9,10 +9,12 @@ namespace FirefighterStats.Server.Controllers;
 using AutoMapper;
 using FirefighterStats.Server.Data;
 using FirefighterStats.Shared.Firefighter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class FirefightersController : ControllerBase
 {
     private readonly ApplicationDbContext _database;
