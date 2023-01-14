@@ -36,7 +36,7 @@ public class AuthenticationService
             return "empty response";
         }
 
-        await _authenticationStateProvider.MarkUserAsAuthenticated(login.UserName, result.Result.Token, result.Result.Expiration);
+        await _authenticationStateProvider.MarkUserAsAuthenticated(result.Result.Token, result.Result.Expiration);
 
         return null;
     }
@@ -60,7 +60,7 @@ public class AuthenticationService
             return "empty response";
         }
 
-        await _authenticationStateProvider.MarkUserAsAuthenticated(registerDTO.UserName, result.Result.Token, result.Result.Expiration);
+        await _authenticationStateProvider.MarkUserAsAuthenticated(result.Result.Token, result.Result.Expiration);
 
         return null;
     }
