@@ -1,0 +1,25 @@
+﻿@using FirefighterStats.Client.Services
+
+@inject AuthenticationService AuthenticationService
+@inject NavigationManager Navigation
+
+<div class="user-info">
+    <i class="bi bi-person-fill user-icon"></i>
+    <div class="menu">
+        <AuthorizeView>
+            <NotAuthorized>
+                <p class="authentication-state">Not connected</p>
+                <element class="horizontal-divider"/>
+                <a onclick="@(() => Navigation.NavigateTo("/authentication/login"))">Login</a>
+                <a onclick="@(() => Navigation.NavigateTo("/authentication/register"))">Register</a>
+            </NotAuthorized>
+            <Authorized>
+                <p class="authentication-state">Signed in as @context.User.Identity?.Name</p>
+                <element class="horizontal-divider"/>
+                <a>My profile</a>
+                <element class="horizontal-divider"/>
+                <a onclick="@(async () => await AuthenticationService.Logout())">Logout</a>
+            </Authorized>
+        </AuthorizeView>
+    </div>
+</div>

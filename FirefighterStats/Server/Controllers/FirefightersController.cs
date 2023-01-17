@@ -9,10 +9,12 @@ namespace FirefighterStats.Server.Controllers;
 using AutoMapper;
 using FirefighterStats.Server.Data;
 using FirefighterStats.Shared.Firefighter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class FirefightersController : ControllerBase
 {
     private readonly ApplicationDbContext _database;
@@ -28,6 +30,6 @@ public class FirefightersController : ControllerBase
     [HttpGet]
     public IEnumerable<FirefighterDTO> Get()
     {
-        return _mapper.Map<List<FirefighterDTO>>(_database.Firefighters.ToList());
+        return _mapper.Map<List<FirefighterDTO>>(_database.Users.ToList());
     }
 }

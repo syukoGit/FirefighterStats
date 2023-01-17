@@ -1,7 +1,14 @@
 ﻿@page "/firefighters"
+
 @using FirefighterStats.Shared.Firefighter
 @using FirefighterStats.Client.Components
+@using FirefighterStats.Client.Services
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
+
 @inject HttpClient Http
+@inject ApiRequestService ApiRequestService
 
 <PageTitle>Firefighters</PageTitle>
 
@@ -21,13 +28,18 @@
     }
 </div>
 
-@code {
-
+@code
+{
     private FirefighterDTO[]? _firefighters;
 
     /// <inheritdoc />
     protected override async Task OnInitializedAsync()
     {
-        _firefighters = await Http.GetFromJsonAsync<FirefighterDTO[]>("api/Firefighters");
+        ApiRequestResponse<FirefighterDTO[]> response = await ApiRequestService.GetFromJsonAsync<FirefighterDTO[]>("api/Firefighters");
+
+        if (response.Success)
+        {
+            _firefighters = response.Result ?? Array.Empty<FirefighterDTO>();
+        }
     }
 }
