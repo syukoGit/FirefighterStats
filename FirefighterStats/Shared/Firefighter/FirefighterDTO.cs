@@ -8,7 +8,7 @@ namespace FirefighterStats.Shared.Firefighter;
 
 public class FirefighterDTO
 {
-    public DateTime CareerStartDate { get; set; }
+    public DateTime? CareerStartDate { get; set; }
 
     public string? FireStation { get; set; }
 
@@ -18,7 +18,7 @@ public class FirefighterDTO
 
     public string? LastName { get; set; }
 
-    public EFirefighterRank Rank { get; set; }
+    public EFirefighterRank? Rank { get; set; }
 
     public string? RegistrationNumber { get; set; }
 }
