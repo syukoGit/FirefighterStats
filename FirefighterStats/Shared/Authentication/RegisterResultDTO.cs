@@ -8,7 +8,7 @@ namespace FirefighterStats.Shared.Authentication;
 
 public class RegisterResultDTO
 {
-    public required DateTime Expiration { get; set; }
+    public required DateTime Expiration { get; init; }
 
-    public required string Token { get; set; }
+    public required string Token { get; init; }
 }
