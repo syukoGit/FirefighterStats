@@ -46,7 +46,7 @@
                 <element class="vertical-divider"/>
                 <div class="link-to-register">
                     <p>New on FirefighterStats?</p>
-                    <a onclick="@(() => Navigation.NavigateTo("authentication/register"))">Create an account</a>
+                    <a onclick="@RedirectToRegister">Create an account</a>
                 </div>
             </div>
         </EditForm>
@@ -86,4 +86,15 @@
         }
     }
 
+    private void RedirectToRegister()
+    {
+        var uri = "authentication/register";
+
+        if (!string.IsNullOrWhiteSpace(ReturnUrl))
+        {
+            uri += $"?returnUrl={ReturnUrl}";
+        }
+
+        Navigation.NavigateTo(uri);
+    }
 }
