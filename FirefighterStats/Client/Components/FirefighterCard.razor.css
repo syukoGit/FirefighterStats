@@ -31,6 +31,7 @@
     box-shadow: 0 2px 21px rgba(0, 0, 0, 0.25);
     height: 60px;
     margin-top: 20px;
+    width: 60px;
 }
 
 #firefighter-name {
@@ -43,8 +44,8 @@
     display: flex;
     flex: 1 1 0;
     flex-flow: column nowrap;
+    gap: 10px;
     height: auto;
-    justify-content: space-between;
     max-height: 150px;
     padding: 20px 30px 20px 30px;
 }
