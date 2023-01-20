@@ -87,7 +87,7 @@
                 <element class="vertical-divider"/>
                 <div class="link-to-register">
                     <p>Already have an account?</p>
-                    <a onclick="@(() => Navigation.NavigateTo("authentication/login"))">Sign in</a>
+                    <a onclick="@RedirectToLogin">Sign in</a>
                 </div>
             </div>
         </EditForm>
@@ -125,5 +125,17 @@
         {
             _error = ex.Message;
         }
+    }
+
+    private void RedirectToLogin()
+    {
+        var uri = "authentication/login";
+
+        if (!string.IsNullOrWhiteSpace(ReturnUrl))
+        {
+            uri += $"?returnUrl={ReturnUrl}";
+        }
+
+        Navigation.NavigateTo(uri);
     }
 }
