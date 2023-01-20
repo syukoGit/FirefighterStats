@@ -1,27 +1,43 @@
 ﻿@using FirefighterStats.Shared.Firefighter
 @using FirefighterStats.Client.Helpers
+@using System.Diagnostics.CodeAnalysis
+@using System.Runtime.CompilerServices
 
-<div class="container">
-    <div class="top">
-        <img src="assets/firefighter-icon.png"
-             alt="FirefighterPicture"
-             id="firefighter-icon"/>
-        <p id="firefighter-name">@Firefighter.FirstName @Firefighter.LastName</p>
+@if (Firefighter != null)
+{
+    <div class="container">
+        <div class="top">
+            <img src="assets/firefighter-icon.png"
+                 alt="FirefighterPicture"
+                 id="firefighter-icon"/>
+            <p id="firefighter-name">@Firefighter.FirstName @Firefighter.LastName</p>
+        </div>
+        <div class="down">
+            @if (Firefighter.CareerStartDate != null && Firefighter.CareerStartDate.Value.Date != DateTime.MinValue.Date)
+            {
+                <p><text class="title-descritpion">Career start:</text> @Firefighter.CareerStartDate?.ToString("dd MMMM yyyy")</p>
+            }
+            @if (!string.IsNullOrWhiteSpace(Firefighter.FireStation))
+            {
+                <p><text class="title-descritpion">Fire station:</text> @Firefighter.FireStation</p>
+            }
+            @if (Firefighter.Rank != null)
+            {
+                <p><text class="title-descritpion">Rank:</text> @Firefighter.Rank.GetDisplayName()</p>
+            }
+            @if (!string.IsNullOrWhiteSpace(Firefighter.RegistrationNumber))
+            {
+                <p><text class="title-descritpion">Registration number:</text> @Firefighter.RegistrationNumber</p>
+            }
+        </div>
     </div>
-    <div class="down">
-        <p><text class="title-descritpion">Career start:</text> @Firefighter.CareerStartDate?.ToString("dd MMMM yyyy")</p>
-        <p><text class="title-descritpion">Fire station:</text> @Firefighter.FireStation</p>
-        <p><text class="title-descritpion">Rank:</text> @Firefighter.Rank?.GetDisplayName()</p>
-        <p><text class="title-descritpion">Registration number:</text> @Firefighter.RegistrationNumber</p>
-    </div>
-</div>
+}
 
 
 @code {
 
     [Parameter]
-    public FirefighterDTO Firefighter { get; set; } = new()
-    {
-        Id = Guid.NewGuid().ToString(),
-    };
+    [EditorRequired]
+    public FirefighterDTO? Firefighter { get; set; }
+
 }
