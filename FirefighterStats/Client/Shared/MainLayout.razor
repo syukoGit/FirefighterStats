@@ -1,11 +1,26 @@
-﻿@inherits LayoutComponentBase
+﻿@using FirefighterStats.Client.Components
+
+@inherits LayoutComponentBase
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
+    <header class="header">
+        <div>
+            <img src="icon-192.png"
+                 alt="FirefighterStats logo" />
+            <p>FirefighterStats</p>
+        </div>
+        <div>
+            <LoginDisplay/>
+        </div>
+    </header>
+    
+    <div class="application-main">
+        <div class="sidebar">
+            <NavMenu/>
+        </div>
 
-    <main id="main">
-        @Body
-    </main>
+        <main class="application-content">
+            @Body
+        </main>
+    </div>
 </div>
