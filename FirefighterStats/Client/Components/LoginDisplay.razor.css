@@ -1,14 +1,14 @@
 ﻿.user-icon {
-    border: 1px solid var(--gray);
+    border: 1px solid var(--white);
     border-radius: 50%;
-    color: var(--gray);
+    color: var(--white);
     font-size: 24px;
     padding: 3px;
 }
 
 .menu {
     background-color: var(--white);
-    border: 2px solid var(--light-red);
+    border: 2px solid var(--red);
     border-radius: 5px;
     box-shadow: 0 0 10px 0 var(--light-gray);
     display: none;
@@ -17,7 +17,7 @@
     left: auto;
     padding: 10px 0;
     position: absolute;
-    right: 0;
+    right: 7px;
     z-index: 1;
 }
 
@@ -42,7 +42,7 @@
 
 .menu::before {
     border: 9px solid transparent;
-    border-bottom: 9px solid var(--light-red);
+    border-bottom: 9px solid var(--red);
     left: auto;
     right: 8px;
     top: -18px;
