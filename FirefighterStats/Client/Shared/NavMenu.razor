@@ -1,31 +1,31 @@
-﻿<div class="navbar">
-    <a class="navbar-brand" href=""> FirefighterStats
-    </a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu" title="Navigation menu">
-        <i class="bi bi-list nav-icon"></i>
-    </button>
-</div>
-
-<div class="@NavMenuCssClass">
+﻿<div class="nav-menu @NavMenuCssClass">
     <nav>
         <div class="nav-item">
             <NavLink href="" Match="NavLinkMatch.All">
-                <i class="bi bi-house nav-icon"></i><text hidden ="@IsCollapsed"> Home</text>
+                <i class="bi bi-house"></i><text>Home</text>
             </NavLink>
         </div>
         <div class="nav-item">
             <NavLink href="firefighters">
-                <i class="bi bi-person-lines-fill nav-icon"></i><text hidden="@IsCollapsed"> Firefighters</text>
+                <i class="bi bi-person-lines-fill"></i><text>Firefighters</text>
             </NavLink>
         </div>
     </nav>
+    
+    <button class="nav-button"
+            onclick="@ToggleNavMenu"
+            role="presentation">
+        <i class="bi @NavMenuIconClass"></i>
+    </button>
 </div>
 
 @code {
 
     private bool IsCollapsed { get; set; } = true;
 
-    private string? NavMenuCssClass => IsCollapsed ? "collapse" : null;
+    private string? NavMenuCssClass => IsCollapsed ? "collapsed" : null;
+
+    private string NavMenuIconClass => IsCollapsed ? "bi-arrow-bar-right" : "bi-arrow-bar-left";
 
     private void ToggleNavMenu()
     {

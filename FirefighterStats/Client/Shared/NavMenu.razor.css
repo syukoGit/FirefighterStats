@@ -1,73 +1,48 @@
-.navbar-toggler { background-color: rgba(255, 255, 255, 0.1); }
-
-.top-row {
-    background-color: rgba(0, 0, 0, 0.4);
-    height: 3.5rem;
+.nav-menu {
+    background-color: var(--dark-red);
+    display: grid;
+    flex-direction: column;
+    height: 100%;
+    padding: 5px 0;
 }
 
-.navbar {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    padding: 10px;
-}
-
-.navbar-brand {
-    color: white;
-    font-size: 1.1rem;
-}
-
-.nav-icon {
-    font-size: 24px;
-    top: -2px;
-    vertical-align: text-top;
-    width: 2rem;
-}
+.nav-menu * { color: var(--white); }
 
 .nav-item {
     font-size: 0.9rem;
+    margin: 0 5px;
     padding-bottom: 0.5rem;
     text-decoration: none;
     width: auto;
 }
 
-.nav-toggler { background-color: rgba(255, 255, 255, 0.1); }
-
-.nav-item:first-of-type { padding-top: 1rem; }
-
-.nav-item:last-of-type { padding-bottom: 1rem; }
-
-/* ReSharper disable once CssNotResolved */
-
 .nav-item ::deep a {
     align-items: center;
-    border-radius: 4px;
-    color: #d7d7d7;
+    border-radius: 5px;
     display: flex;
+    gap: 10px;
     height: 3rem;
-    line-height: 3rem;
+    padding: 0 15px;
+    text-decoration: none;
 }
 
-/* ReSharper disable once CssNotResolved */
+.nav-item ::deep a.active, .nav-item ::deep a:hover { background-color: var(--transparent-25); }
 
-.nav-item ::deep a.active {
-    background-color: rgba(255, 255, 255, 0.25);
-    color: white;
+.nav-item i {
+    font-size: 24px;
+    vertical-align: text-top;
 }
 
-/* ReSharper disable once CssNotResolved */
-
-.nav-item ::deep a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
+.nav-button {
+    align-self: flex-end;
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    font-size: 24px;
+    justify-self: center;
+    padding: 5px;
 }
 
-@media (min-width: 641px) {
-    .navbar-toggler { display: none; }
+.nav-button:hover { background: var(--transparent-25); }
 
-    .collapse { display: block; }
-}
-
-@media (max-width: 641px) {
-    .nav-toggler { display: none; }
-}
+.nav-menu.collapsed .nav-item text { display: none; }
