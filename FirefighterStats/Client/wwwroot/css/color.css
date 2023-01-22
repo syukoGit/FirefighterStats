@@ -1,8 +1,14 @@
-﻿:root {
+﻿:root { --transparent-25: rgba(255, 255, 255, 0.25); }
+
+:root { --white: white; }
+
+:root {
+    --dark-red: #c61500;
+    --red: #fe1b00;
+    --light-red: #ff7575;
+}
+
+:root {
     --light-gray: #909090;
     --gray: #636363;
-    --light-red: #ff7575;
-    --red: #fe1b00;
-    --dark-red: #c61500;
-    --white: white;
 }
