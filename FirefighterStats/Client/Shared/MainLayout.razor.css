@@ -16,14 +16,14 @@
     width: 100%;
 }
 
-.header div {
+.app-identity {
     align-items: center;
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 17px;
 }
 
-.header img {
+.app-identity img {
     border-radius: 10px;
     height: 30px;
     width: 30px;
