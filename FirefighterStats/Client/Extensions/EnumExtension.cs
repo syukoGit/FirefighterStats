@@ -4,7 +4,7 @@
 //  </copyright>
 // -----------------------------------------------------------------------
 
-namespace FirefighterStats.Client.Helpers;
+namespace FirefighterStats.Client.Extensions;
 
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;

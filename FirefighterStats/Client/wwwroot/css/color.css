@@ -12,3 +12,9 @@
     --light-gray: #909090;
     --gray: #636363;
 }
+
+:root {
+    --light-green: #2cf46c;
+    --green: #02cd43;
+    --dark-green: #00a033;
+}
