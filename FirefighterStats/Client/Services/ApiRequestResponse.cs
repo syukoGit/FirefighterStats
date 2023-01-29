@@ -6,16 +6,27 @@
 
 namespace FirefighterStats.Client.Services;
 
+using System.Diagnostics.CodeAnalysis;
+
 public class ApiRequestResponse<T>
 {
-    public ApiRequestResponse(bool success)
+    public ApiRequestResponse(T? result)
     {
-        Success = success;
+        IsSuccess = true;
+        Result = result;
     }
 
-    public string? Errors { get; init; }
+    public ApiRequestResponse(string errors)
+    {
+        IsSuccess = false;
+        Errors = errors;
+    }
 
-    public T? Result { get; init; }
+    public string? Errors { get; }
 
-    public bool Success { get; }
+    [MemberNotNullWhen(true, nameof(Result))]
+    [MemberNotNullWhen(false, nameof(Errors))]
+    public bool IsSuccess { get; }
+
+    public T? Result { get; }
 }
