@@ -1,0 +1,22 @@
+﻿.notification {
+    animation: 3s linear show infinite;
+    background-color: var(--light-green);
+    border: 4px solid var(--green);
+    border-radius: 10px;
+    bottom: 20px;
+    color: var(--dark-green);
+    font-weight: bold;
+    margin: 10px;
+    padding: 20px;
+    position: fixed;
+    right: 0;
+    width: 300px;
+}
+
+@keyframes show {
+    0% { right: -400px; }
+
+    25%, 75% { right: 0; }
+
+    100% { right: -400px; }
+}

@@ -1,0 +1,72 @@
+﻿@using FirefighterStats.Client.Services
+
+@implements IDisposable
+
+@inject NotificationService NotificationService
+
+@if (Message != null)
+{
+    <div class="notification" style="animation-duration: @(AnimationDurationMs + "ms")">
+        <p>@Message</p>
+    </div>
+}
+
+@code {
+
+    private const int AnimationDurationMs = 3000;
+
+    private string? _message;
+
+    private Task? _ongoingTask;
+
+    private CancellationTokenSource _cancellationTokenSource = new ();
+
+    private string? Message
+    {
+        get => _message;
+        set
+        {
+            _message = value;
+            StateHasChanged();
+        }
+    }
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        NotificationService.NewNotification -= NotificationService_NewNotification;
+
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource.Dispose();
+    }
+
+    /// <inheritdoc />
+    protected override void OnInitialized()
+    {
+        NotificationService.NewNotification += NotificationService_NewNotification;
+
+        if (NotificationService.HasNotification)
+        {
+            _ongoingTask ??= Task.Run(Process, _cancellationTokenSource.Token);
+        }
+    }
+
+    private void NotificationService_NewNotification(object? sender, EventArgs e)
+    {
+        _ongoingTask ??= Task.Run(Process, _cancellationTokenSource.Token);
+    }
+
+    private async Task Process()
+    {
+        while (NotificationService.HasNotification && !_cancellationTokenSource.IsCancellationRequested)
+        {
+            Message = NotificationService.NextNotification;
+
+            await Task.Delay(AnimationDurationMs, _cancellationTokenSource.Token);
+        }
+
+        Message = null;
+        _ongoingTask = null;
+    }
+
+}
