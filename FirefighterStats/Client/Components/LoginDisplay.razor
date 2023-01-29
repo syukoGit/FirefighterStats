@@ -16,7 +16,7 @@
             <Authorized>
                 <p class="authentication-state">Signed in as @context.User.Identity?.Name</p>
                 <element class="horizontal-divider"/>
-                <a>My profile</a>
+                <a onclick="@(() => Navigation.NavigateTo("/your-profile"))">Your profile</a>
                 <element class="horizontal-divider"/>
                 <a onclick="@(async () => await AuthenticationService.Logout())">Logout</a>
             </Authorized>

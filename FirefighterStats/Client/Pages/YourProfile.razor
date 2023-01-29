@@ -1,0 +1,145 @@
+﻿@using FirefighterStats.Client.Components
+@using FirefighterStats.Client.Components.Inputs
+@using FirefighterStats.Client.Extensions
+@using FirefighterStats.Shared.Firefighter
+@using FirefighterStats.Client.Services
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components
+
+@attribute [Authorize]
+
+@page "/your-profile"
+
+@inject ApiRequestService ApiRequest
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NotificationService NotificationService
+
+@if (!string.IsNullOrEmpty(_error))
+{
+    <ul class="errors">
+        <li>@_error</li>
+    </ul>
+}
+
+@if (_retrievingData)
+{
+    <SpinningLoading/>
+}
+else
+{
+    <div class="page-content">
+        <div class="identity">
+            <i class="bi bi-person-fill user-icon"></i>
+            <p>@_names</p>
+        </div>
+        <element class="horizontal-divider"/>
+        <EditForm class="firefighter-props"
+                  Model="_firefighter"
+                  OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator/>
+
+            <CustomInputText @bind-Value="_firefighter.RegistrationNumber"
+                             id="registration-number-input"
+                             Label="Registration Number"
+                             ValidationFor="() => _firefighter.RegistrationNumber"/>
+
+            <CustomInputDate @bind-Value="_firefighter.CareerStartDate"
+                             id="career-start-data-input"
+                             Label="Career start date"
+                             ValidationFor="() => _firefighter.CareerStartDate"/>
+
+            <CustomInputText @bind-Value="_firefighter.FireStation"
+                             id="fire-station-input"
+                             Label="FirefighterCard station"
+                             ValidationFor="() => _firefighter.FireStation"/>
+
+            <CustomInputSelect @bind-Value="_firefighter.Rank"
+                               id="firefighter-rank-input"
+                               Label="FirefighterCard rank"
+                               TValue="EFirefighterRank"
+                               ValidationFor="() => _firefighter.Rank">
+                <option></option>
+                @foreach (EFirefighterRank rank in Enum.GetValues(typeof(EFirefighterRank)))
+                {
+                    <option value="@rank">@rank.GetDisplayName()</option>
+                }
+            </CustomInputSelect>
+
+            <button class="default-button">Save</button>
+        </EditForm>
+    </div>
+}
+
+@code {
+
+    private string? _error;
+
+    private UpdateFirefighterPropsDTO _firefighter = new ();
+
+    private string _names = string.Empty;
+
+    private bool _retrievingData = true;
+
+    private string? _username;
+
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+        _username = authenticationState.User.Identity?.Name;
+
+        if (string.IsNullOrEmpty(_username))
+        {
+            _error = "Unable to retrieve your profile. Please try again later.";
+        }
+        else
+        {
+            ApiRequestResponse<FirefighterDTO> response = await ApiRequest.GetFromJsonAsync<FirefighterDTO>($"api/Firefighters/{_username}");
+
+            if (response.IsSuccess)
+            {
+                FirefighterDTO? result = response.Result;
+
+                _names = $"{result.FirstName} {result.LastName}";
+
+                _firefighter = new UpdateFirefighterPropsDTO
+                {
+                    CareerStartDate = result.CareerStartDate,
+                    FireStation = result.FireStation,
+                    Rank = result.Rank,
+                    RegistrationNumber = result.RegistrationNumber,
+                };
+            }
+            else
+            {
+                _error = "Unable to retrieve your profile. Please try again later.";
+            }
+        }
+
+        _retrievingData = false;
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        _error = null;
+
+        try
+        {
+            ApiRequestResponse<FirefighterDTO> response = await ApiRequest.PutAsJsonAsync<FirefighterDTO>($"api/Firefighters/{_username}", _firefighter);
+
+            if (response.IsSuccess)
+            {
+                NotificationService.Add("Your profile are been saved.");
+            }
+            else
+            {
+                _error = response.Errors;
+            }
+        }
+        catch (ApplicationException ex)
+        {
+            _error = ex.Message;
+        }
+    }
+
+}
