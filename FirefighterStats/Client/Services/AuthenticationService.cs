@@ -26,7 +26,7 @@ public class AuthenticationService
     {
         ApiRequestResponse<LoginResultDTO> result = await _apiRequestService.PostAsJsonAsync<LoginResultDTO>("api/Account/login", login);
 
-        if (!result.Success)
+        if (!result.IsSuccess)
         {
             return result.Errors;
         }
@@ -50,7 +50,7 @@ public class AuthenticationService
     {
         ApiRequestResponse<RegisterResultDTO> result = await _apiRequestService.PostAsJsonAsync<RegisterResultDTO>("api/Account/register", registerDTO);
 
-        if (!result.Success)
+        if (!result.IsSuccess)
         {
             return result.Errors;
         }

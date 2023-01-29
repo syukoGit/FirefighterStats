@@ -33,6 +33,17 @@ element.vertical-divider {
     width: 0;
 }
 
+button.default-button {
+    background: var(--red);
+    border: none;
+    border-radius: 5px;
+    color: var(--white);
+    height: 50px;
+    width: 70px;
+}
+
+button.default-button:hover { background: var(--dark-red); }
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

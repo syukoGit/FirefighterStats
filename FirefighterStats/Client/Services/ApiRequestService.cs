@@ -29,81 +29,45 @@ public class ApiRequestService
     {
         HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
 
-        if (response.IsSuccessStatusCode)
-        {
-            string resultStr = await response.Content.ReadAsStringAsync();
-
-            var result = JsonSerializer.Deserialize<T>(resultStr, _serializerOptions);
-
-            return new ApiRequestResponse<T>(true)
-            {
-                Result = result,
-            };
-        }
-
-        switch (response.StatusCode)
-        {
-            case HttpStatusCode.InternalServerError:
-                return new ApiRequestResponse<T>(false)
-                {
-                    Errors = "Internal server error",
-                };
-            case HttpStatusCode.Unauthorized:
-                return new ApiRequestResponse<T>(false)
-                {
-                    Errors = "Unauthorized",
-                };
-
-            default:
-            {
-                string errors = await response.Content.ReadAsStringAsync();
-
-                return new ApiRequestResponse<T>(false)
-                {
-                    Errors = errors,
-                };
-            }
-        }
+        return response.IsSuccessStatusCode
+                   ? await ProcessResultAsync<T>(response)
+                   : await ProcessErrorsAsync<T>(response);
     }
 
     public async Task<ApiRequestResponse<T>> PostAsJsonAsync<T>([StringSyntax("Uri")] string requestUri, object data)
     {
         HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUri, data, _serializerOptions);
 
-        if (response.IsSuccessStatusCode)
+        return response.IsSuccessStatusCode
+                   ? await ProcessResultAsync<T>(response)
+                   : await ProcessErrorsAsync<T>(response);
+    }
+
+    public async Task<ApiRequestResponse<T>> PutAsJsonAsync<T>([StringSyntax("Uri")] string requestUri, object data)
+    {
+        HttpResponseMessage response = await _httpClient.PutAsJsonAsync(requestUri, data, _serializerOptions);
+
+        return response.IsSuccessStatusCode
+                   ? await ProcessResultAsync<T>(response)
+                   : await ProcessErrorsAsync<T>(response);
+    }
+
+    private static async Task<ApiRequestResponse<T>> ProcessErrorsAsync<T>(HttpResponseMessage response)
+    {
+        return response.StatusCode switch
         {
-            string resultStr = await response.Content.ReadAsStringAsync();
+            HttpStatusCode.InternalServerError => new ApiRequestResponse<T>("Internal server error"),
+            HttpStatusCode.Unauthorized => new ApiRequestResponse<T>("Unauthorized"),
+            _ => new ApiRequestResponse<T>(await response.Content.ReadAsStringAsync()),
+        };
+    }
 
-            var result = JsonSerializer.Deserialize<T>(resultStr, _serializerOptions);
+    private async Task<ApiRequestResponse<T>> ProcessResultAsync<T>(HttpResponseMessage response)
+    {
+        string resultStr = await response.Content.ReadAsStringAsync();
 
-            return new ApiRequestResponse<T>(true)
-            {
-                Result = result,
-            };
-        }
+        var result = JsonSerializer.Deserialize<T>(resultStr, _serializerOptions);
 
-        switch (response.StatusCode)
-        {
-            case HttpStatusCode.InternalServerError:
-                return new ApiRequestResponse<T>(false)
-                {
-                    Errors = "Internal server error",
-                };
-            case HttpStatusCode.Unauthorized:
-                return new ApiRequestResponse<T>(false)
-                {
-                    Errors = "Unauthorized",
-                };
-
-            default:
-            {
-                string errors = await response.Content.ReadAsStringAsync();
-
-                return new ApiRequestResponse<T>(false)
-                {
-                    Errors = errors,
-                };
-            }
-        }
+        return new ApiRequestResponse<T>(result);
     }
 }
