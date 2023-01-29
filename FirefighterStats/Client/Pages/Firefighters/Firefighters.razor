@@ -36,7 +36,7 @@
     {
         ApiRequestResponse<FirefighterDTO[]> response = await ApiRequestService.GetFromJsonAsync<FirefighterDTO[]>("api/Firefighters");
 
-        if (response.Success)
+        if (response.IsSuccess)
         {
             _firefighters = response.Result ?? Array.Empty<FirefighterDTO>();
         }
