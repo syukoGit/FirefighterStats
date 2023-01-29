@@ -15,5 +15,6 @@ public class AutoMapperProfile : Profile
     public AutoMapperProfile()
     {
         CreateMap<Firefighter, FirefighterDTO>();
+        CreateMap<UpdateFirefighterPropsDTO, Firefighter>();
     }
 }
