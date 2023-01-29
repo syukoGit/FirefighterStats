@@ -22,6 +22,7 @@ builder.Services.AddScoped<AuthenticationService>();
 
 builder.Services.AddScoped<ApiRequestService>();
 builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
+builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped(static sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("FirefighterStats.ServerAPI"));
 
 builder.Services.AddBlazoredLocalStorage();
