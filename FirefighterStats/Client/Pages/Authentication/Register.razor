@@ -15,7 +15,12 @@
     <div class="form-wrapper">
         <h1>Register</h1>
 
-        <ErrorsDisplay Errors="@_errors"/>
+        @if (_error != null)
+        {
+            <ul class="errors">
+                <li>@_error</li>
+            </ul>
+        }
 
         <EditForm Model="_registerDTO"
                   OnValidSubmit="HandleValidSubmit">
@@ -97,11 +102,11 @@
 
     private readonly RegisterDTO _registerDTO = new();
 
-    private string[]? _errors;
+    private string? _error;
 
     private async Task HandleValidSubmit()
     {
-        _errors = null;
+        _error = null;
 
         try
         {
@@ -113,12 +118,12 @@
             }
             else
             {
-                _errors = new [] { error };
+                _error = error;
             }
         }
         catch (ApplicationException ex)
         {
-            _errors = new [] { ex.Message };
+            _error = ex.Message;
         }
     }
 
