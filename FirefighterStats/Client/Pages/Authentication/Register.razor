@@ -28,33 +28,33 @@
 
             <CustomInputText @bind-Value="_registerDTO.FirstName"
                              id="first-name-input"
-                             ValidationFor="() => _registerDTO.FirstName"
-                             Label="First name"/>
-            
+                             Label="First name"
+                             ValidationFor="() => _registerDTO.FirstName"/>
+
             <CustomInputText @bind-Value="_registerDTO.LastName"
                              id="last-name-input"
-                             ValidationFor="() => _registerDTO.LastName"
-                             Label="Last name"/>
-            
+                             Label="Last name"
+                             ValidationFor="() => _registerDTO.LastName"/>
+
             <CustomInputText @bind-Value="_registerDTO.UserName"
                              id="username-input"
-                             ValidationFor="() => _registerDTO.UserName"
-                             Label="Username"/>
-            
+                             Label="Username"
+                             ValidationFor="() => _registerDTO.UserName"/>
+
             <CustomInputText @bind-Value="_registerDTO.Password"
                              id="password-input"
-                             ValidationFor="() => _registerDTO.Password"
                              Label="Password"
-                             type="password"/>
-            
+                             type="password"
+                             ValidationFor="() => _registerDTO.Password"/>
+
             <CustomInputText @bind-Value="_registerDTO.ConfirmPassword"
                              id="confirm-password-input"
-                             ValidationFor="() => _registerDTO.ConfirmPassword"
                              Label="Confirm password"
-                             type="password"/>
+                             type="password"
+                             ValidationFor="() => _registerDTO.ConfirmPassword"/>
 
-            <Accordion Title="Optional informations"
-                       class="accordion-optional-info">
+            <Accordion class="accordion-optional-info"
+                       Title="Optional informations">
                 <CustomInputDate @bind-Value="_registerDTO.CareerStartDate"
                                  id="career-start-data-input"
                                  Label="Career start date"
@@ -64,22 +64,22 @@
                                  id="fire-station-input"
                                  Label="FirefighterCard station"
                                  ValidationFor="() => _registerDTO.FireStation"/>
-                                 
+
                 <CustomInputSelect @bind-Value="_registerDTO.Rank"
-                                   TValue="EFirefighterRank"
                                    id="firefighter-rank-input"
                                    Label="FirefighterCard rank"
+                                   TValue="EFirefighterRank"
                                    ValidationFor="() => _registerDTO.Rank">
                     @foreach (EFirefighterRank rank in Enum.GetValues(typeof(EFirefighterRank)))
                     {
                         <option value="@rank">@rank.GetDisplayName()</option>
                     }
                 </CustomInputSelect>
-                
+
                 <CustomInputText @bind-Value="_registerDTO.RegistrationNumber"
-                                   id="registration-number-input"
-                                   Label="Registration Number"
-                                   ValidationFor="() => _registerDTO.RegistrationNumber"/>
+                                 id="registration-number-input"
+                                 Label="Registration Number"
+                                 ValidationFor="() => _registerDTO.RegistrationNumber"/>
             </Accordion>
 
             <div class="buttons">
@@ -100,7 +100,7 @@
     [SupplyParameterFromQuery]
     public string? ReturnUrl { get; set; }
 
-    private readonly RegisterDTO _registerDTO = new ();
+    private readonly RegisterDTO _registerDTO = new();
 
     private string? _error;
 
@@ -138,4 +138,5 @@
 
         Navigation.NavigateTo(uri);
     }
+
 }
