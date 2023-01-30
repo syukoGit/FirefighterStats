@@ -45,15 +45,6 @@
 
 .form-wrapper ::deep form > *:nth-child(7) { grid-area: 5/1/6/3; }
 
-.errors {
-    background: var(--light-red);
-    border: 3px solid var(--red);
-    border-radius: 5px;
-    color: var(--white);
-    padding: 0 10px 0 25px;
-    width: 80%;
-}
-
 ::deep .accordion { width: 100%; }
 
 ::deep .accordion-optional-info {

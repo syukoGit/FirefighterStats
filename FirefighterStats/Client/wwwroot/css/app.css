@@ -44,6 +44,16 @@ button.default-button {
 
 button.default-button:hover { background: var(--dark-red); }
 
+div.errors, ul.errors {
+    background: var(--light-red);
+    border: 3px solid var(--red);
+    border-radius: 5px;
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    padding: 0 10px 0 25px;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
