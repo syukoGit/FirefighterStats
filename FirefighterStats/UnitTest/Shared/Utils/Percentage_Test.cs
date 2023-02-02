@@ -58,6 +58,31 @@ public class Percentage_Test
         Assert.Equal(firstHashCode, secondHashCode);
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData("%")]
+    [InlineData(".")]
+    [InlineData("2.")]
+    [InlineData("2.%")]
+    [InlineData(".%")]
+    public void ImplicitConversion_StringToPercentage_Failed(string value)
+    {
+        Assert.Throws<FormatException>(() => (Percentage) value);
+    }
+
+    [Theory]
+    [InlineData("2%", 2)]
+    [InlineData("0.5%", 0.5)]
+    [InlineData("12.51%", 12.51)]
+    [InlineData("0000.000001%", 0.000001)]
+    [InlineData("1000%", 1000)]
+    public void ImplicitConversion_StringToPercentage_Success(string value, double result)
+    {
+        Percentage percentage = value;
+
+        Assert.Equal<double>(percentage, result);
+    }
+
     [Fact]
     public void InequalityOperator_TwoPercentages_False()
     {

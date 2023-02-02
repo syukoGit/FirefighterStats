@@ -6,7 +6,10 @@
 
 namespace FirefighterStats.Shared.Utils;
 
-public readonly struct Percentage
+using System.Globalization;
+using System.Text.RegularExpressions;
+
+public readonly partial struct Percentage
 {
     private readonly double _value;
 
@@ -22,11 +25,27 @@ public readonly struct Percentage
 
     public static implicit operator double(Percentage percentage)
     {
-        return percentage._value / 100;
+        return percentage._value;
     }
 
     public static implicit operator Percentage(double value)
     {
+        return new Percentage(value);
+    }
+
+    public static implicit operator Percentage(string? str)
+    {
+        ArgumentNullException.ThrowIfNull(str);
+
+        if (!RegexFormat().IsMatch(str))
+        {
+            throw new FormatException($"Unable to parse {str} to Percentage");
+        }
+
+        double value = str.EndsWith("%", StringComparison.Ordinal)
+                           ? double.Parse(str[..^1], CultureInfo.InvariantCulture)
+                           : double.Parse(str, CultureInfo.InvariantCulture) / 100;
+
         return new Percentage(value);
     }
 
@@ -42,12 +61,12 @@ public readonly struct Percentage
 
     public static double operator *(Percentage left, double right)
     {
-        return (double) left * right;
+        return left / 100 * right;
     }
 
     public static double operator *(double left, Percentage right)
     {
-        return left * (double) right;
+        return left * (right / 100);
     }
 
     /// <inheritdoc />
@@ -67,6 +86,9 @@ public readonly struct Percentage
     {
         return $"{_value}%";
     }
+
+    [GeneratedRegex("^[0-9]+(.[0-9]+){0,1}%{0,1}$")]
+    private static partial Regex RegexFormat();
 
     private bool Equals(Percentage other)
     {
