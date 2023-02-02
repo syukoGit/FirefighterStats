@@ -42,9 +42,11 @@ public readonly partial struct Percentage
             throw new FormatException($"Unable to parse {str} to Percentage");
         }
 
-        double value = str.EndsWith("%", StringComparison.Ordinal)
-                           ? double.Parse(str[..^1], CultureInfo.InvariantCulture)
-                           : double.Parse(str, CultureInfo.InvariantCulture) / 100;
+        string strValue = str.EndsWith("%", StringComparison.Ordinal)
+                              ? str[..^1]
+                              : str;
+
+        double value = double.Parse(strValue, CultureInfo.InvariantCulture);
 
         return new Percentage(value);
     }

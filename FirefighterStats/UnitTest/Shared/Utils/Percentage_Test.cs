@@ -72,10 +72,15 @@ public class Percentage_Test
 
     [Theory]
     [InlineData("2%", 2)]
+    [InlineData("2", 2)]
     [InlineData("0.5%", 0.5)]
+    [InlineData("0.5", 0.5)]
     [InlineData("12.51%", 12.51)]
+    [InlineData("12.51", 12.51)]
     [InlineData("0000.000001%", 0.000001)]
+    [InlineData("0000.000001", 0.000001)]
     [InlineData("1000%", 1000)]
+    [InlineData("1000", 1000)]
     public void ImplicitConversion_StringToPercentage_Success(string value, double result)
     {
         Percentage percentage = value;
