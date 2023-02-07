@@ -8,7 +8,10 @@ namespace FirefighterStats.Server.Helpers;
 
 using AutoMapper;
 using FirefighterStats.Server.Entities;
+using FirefighterStats.Server.Entities.FirefighterActivities;
 using FirefighterStats.Shared.Firefighter;
+using FirefighterStats.Shared.IndemnitySlip;
+using FirefighterStats.Shared.IndemnitySlip.FirefighterActivities;
 
 public class AutoMapperProfile : Profile
 {
@@ -16,5 +19,14 @@ public class AutoMapperProfile : Profile
     {
         CreateMap<Firefighter, FirefighterDTO>();
         CreateMap<UpdateFirefighterPropsDTO, Firefighter>();
+
+        CreateMap<IndemnitySlip, IndemnitySlipDTO>();
+        CreateMap<CreateIndemnitySlipDTO, IndemnitySlip>();
+
+        CreateMap<Activity, ActivityDTO>();
+        CreateMap<CreateActivityDTO, Activity>();
+
+        CreateMap<Intervention, InterventionDTO>();
+        CreateMap<CreateInterventionDTO, Intervention>();
     }
 }
