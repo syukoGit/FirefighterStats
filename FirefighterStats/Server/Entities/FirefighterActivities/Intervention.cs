@@ -6,12 +6,13 @@
 
 namespace FirefighterStats.Server.Entities.FirefighterActivities;
 
+using System.ComponentModel.DataAnnotations;
 using FirefighterStats.Shared.IndemnitySlip.FirefighterActivities;
 using FirefighterStats.Shared.Utils;
 using JetBrains.Annotations;
 
 [UsedImplicitly]
-public class Intervention : FirefighterActivity
+public class Intervention
 {
     private static readonly Percentage s_dayRate = "100%";
 
@@ -23,13 +24,11 @@ public class Intervention : FirefighterActivity
 
     private DateTime _startDateTime = DateTime.MinValue;
 
-    /// <inheritdoc />
-    public override double Amount => Math.Round((DayHours * s_dayRate + NightHours * s_nightRate + SpecialHours * s_specialRate) * UnitAmount, 2);
+    public double Amount => Math.Round((DayHours * s_dayRate + NightHours * s_nightRate + SpecialHours * s_specialRate) * UnitAmount, 2);
 
     public double DayHours { get; private set; }
 
-    /// <inheritdoc />
-    public override required DateTime EndDateTime
+    public required DateTime EndDateTime
     {
         get => _endDateTime;
 
@@ -40,6 +39,11 @@ public class Intervention : FirefighterActivity
         }
     }
 
+    [Key]
+    public required string Id { get; set; }
+
+    public required IndemnitySlip IndemnitySlip { get; set; }
+
     public required EInterventionType InterventionType { get; set; }
 
     public double NightHours { get; private set; }
@@ -48,8 +52,7 @@ public class Intervention : FirefighterActivity
 
     public double SpecialHours { get; private set; }
 
-    /// <inheritdoc />
-    public override required DateTime StartDateTime
+    public required DateTime StartDateTime
     {
         get => _startDateTime;
 
@@ -60,7 +63,11 @@ public class Intervention : FirefighterActivity
         }
     }
 
+    public required string Title { get; set; }
+
     public double TotalHours => DayHours + NightHours + SpecialHours;
+
+    public required double UnitAmount { get; set; }
 
     private void CalculateHours()
     {
