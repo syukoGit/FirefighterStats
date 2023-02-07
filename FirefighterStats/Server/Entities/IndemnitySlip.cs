@@ -14,12 +14,12 @@ using JetBrains.Annotations;
 [UsedImplicitly]
 public class IndemnitySlip
 {
-    public IEnumerable<Activity>? Activities { get; set; }
+    public List<Activity> Activities { get; set; } = new ();
 
     [Key]
     public required string Id { get; set; }
 
-    public IEnumerable<Intervention>? Interventions { get; set; }
+    public List<Intervention> Interventions { get; set; } = new ();
 
     public required EMonth Month { get; set; }
 
