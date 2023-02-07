@@ -17,7 +17,7 @@ namespace FirefighterStats.Server.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -107,6 +107,106 @@ namespace FirefighterStats.Server.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("FirefighterStats.Server.Entities.FirefighterActivities.Activity", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("EndDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IndemnitySlipId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double>("Rate")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("StartDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("UnitAmount")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IndemnitySlipId");
+
+                    b.ToTable("Activity");
+                });
+
+            modelBuilder.Entity("FirefighterStats.Server.Entities.FirefighterActivities.Intervention", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double>("DayHours")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("EndDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IndemnitySlipId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("InterventionType")
+                        .HasColumnType("int");
+
+                    b.Property<double>("NightHours")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<double>("SpecialHours")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("StartDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("UnitAmount")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IndemnitySlipId");
+
+                    b.ToTable("Intervention");
+                });
+
+            modelBuilder.Entity("FirefighterStats.Server.Entities.IndemnitySlip", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FirefighterId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FirefighterId");
+
+                    b.ToTable("IndemnitySlip");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -187,10 +287,12 @@ namespace FirefighterStats.Server.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -227,10 +329,12 @@ namespace FirefighterStats.Server.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -238,6 +342,35 @@ namespace FirefighterStats.Server.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("FirefighterStats.Server.Entities.FirefighterActivities.Activity", b =>
+                {
+                    b.HasOne("FirefighterStats.Server.Entities.IndemnitySlip", "IndemnitySlip")
+                        .WithMany("Activities")
+                        .HasForeignKey("IndemnitySlipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IndemnitySlip");
+                });
+
+            modelBuilder.Entity("FirefighterStats.Server.Entities.FirefighterActivities.Intervention", b =>
+                {
+                    b.HasOne("FirefighterStats.Server.Entities.IndemnitySlip", "IndemnitySlip")
+                        .WithMany("Interventions")
+                        .HasForeignKey("IndemnitySlipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IndemnitySlip");
+                });
+
+            modelBuilder.Entity("FirefighterStats.Server.Entities.IndemnitySlip", b =>
+                {
+                    b.HasOne("FirefighterStats.Server.Entities.Firefighter", null)
+                        .WithMany("IndemnitySlips")
+                        .HasForeignKey("FirefighterId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -289,6 +422,18 @@ namespace FirefighterStats.Server.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FirefighterStats.Server.Entities.Firefighter", b =>
+                {
+                    b.Navigation("IndemnitySlips");
+                });
+
+            modelBuilder.Entity("FirefighterStats.Server.Entities.IndemnitySlip", b =>
+                {
+                    b.Navigation("Activities");
+
+                    b.Navigation("Interventions");
                 });
 #pragma warning restore 612, 618
         }
