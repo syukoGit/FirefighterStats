@@ -7,8 +7,10 @@
 namespace FirefighterStats.Shared.Utils;
 
 using System.Globalization;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
+[JsonConverter(typeof(JsonPercentageDoubleConverter))]
 public readonly partial struct Percentage
 {
     private readonly double _value;
