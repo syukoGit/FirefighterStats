@@ -3,7 +3,7 @@
 @using System.ComponentModel
 
 @typeparam TValue where TValue : struct
-@inherits InputBase<TValue>
+@inherits InputBase<TValue?>
 
 <div class="input-group">
     <select class="input @CssClass"
@@ -34,7 +34,7 @@
     public string? Label { get; set; }
 
     [Parameter]
-    public Expression<Func<TValue>>? ValidationFor { get; set; }
+    public Expression<Func<TValue?>>? ValidationFor { get; set; }
 
     /// <inheritdoc />
     protected override void OnInitialized()
@@ -43,11 +43,11 @@
     }
 
     /// <inheritdoc />
-    protected override bool TryParseValueFromString(string? value, out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, out TValue? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         if (value == null)
         {
-            result = default;
+            result = null;
             validationErrorMessage = null;
             return true;
         }
@@ -55,17 +55,12 @@
         if (typeof(TValue) == typeof(Enum))
         {
             TypeConverter converter = TypeDescriptor.GetConverter(typeof(TValue));
-            object? resultConvert = converter.ConvertFromInvariantString(null, value);
-
-            result = resultConvert != null
-                         ? (TValue) resultConvert
-                         : default;
-
+            result = (TValue?) converter.ConvertFromInvariantString(null, value);
             validationErrorMessage = null;
             return true;
         }
 
-        result = default;
+        result = null;
         validationErrorMessage = "type not supported";
         return false;
     }

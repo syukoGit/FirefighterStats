@@ -10,6 +10,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 public class ApiRequestService
 {
@@ -18,6 +19,7 @@ public class ApiRequestService
     private readonly JsonSerializerOptions _serializerOptions = new ()
     {
         PropertyNameCaseInsensitive = true,
+        Converters = { new JsonStringEnumConverter() },
     };
 
     public ApiRequestService(HttpClient httpClient)

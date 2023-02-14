@@ -6,6 +6,7 @@
 
 namespace FirefighterStats.Shared.IndemnitySlip;
 
+using System.ComponentModel.DataAnnotations;
 using FirefighterStats.Shared.IndemnitySlip.FirefighterActivities;
 using FirefighterStats.Shared.Utils;
 
@@ -15,7 +16,9 @@ public class CreateIndemnitySlipDTO
 
     public IEnumerable<CreateInterventionDTO>? Interventions { get; set; }
 
-    public required EMonth Month { get; set; }
+    [Required]
+    public EMonth Month { get; set; }
 
-    public required int Year { get; set; }
+    [Required]
+    public int Year { get; set; }
 }

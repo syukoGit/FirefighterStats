@@ -53,17 +53,17 @@ else
                              Label="FirefighterCard station"
                              ValidationFor="() => _firefighter.FireStation"/>
 
-            <CustomInputSelect @bind-Value="_firefighter.Rank"
-                               id="firefighter-rank-input"
-                               Label="FirefighterCard rank"
-                               TValue="EFirefighterRank"
-                               ValidationFor="() => _firefighter.Rank">
+            <CustomInputNullableSelect @bind-Value="_firefighter.Rank"
+                                       id="firefighter-rank-input"
+                                       Label="FirefighterCard rank"
+                                       TValue="EFirefighterRank"
+                                       ValidationFor="() => _firefighter.Rank">
                 <option></option>
                 @foreach (EFirefighterRank rank in Enum.GetValues(typeof(EFirefighterRank)))
                 {
                     <option value="@rank">@rank.GetDisplayName()</option>
                 }
-            </CustomInputSelect>
+            </CustomInputNullableSelect>
 
             <button class="default-button">Save</button>
         </EditForm>
@@ -74,7 +74,7 @@ else
 
     private string? _error;
 
-    private UpdateFirefighterPropsDTO _firefighter = new ();
+    private UpdateFirefighterPropsDTO _firefighter = new();
 
     private string _names = string.Empty;
 
@@ -107,7 +107,7 @@ else
                     CareerStartDate = result.CareerStartDate,
                     FireStation = result.FireStation,
                     Rank = result.Rank,
-                    RegistrationNumber = result.RegistrationNumber,
+                    RegistrationNumber = result.RegistrationNumber
                 };
             }
             else
