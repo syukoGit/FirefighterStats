@@ -42,7 +42,9 @@ public class Intervention
     [Key]
     public required string Id { get; set; }
 
-    public required IndemnitySlip IndemnitySlip { get; set; }
+#pragma warning disable CS8618
+    public IndemnitySlip IndemnitySlip { get; set; }
+#pragma warning restore CS8618
 
     public required EInterventionType InterventionType { get; set; }
 

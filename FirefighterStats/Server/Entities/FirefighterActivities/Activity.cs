@@ -22,7 +22,9 @@ public class Activity
     [Key]
     public required string Id { get; set; }
 
-    public required IndemnitySlip IndemnitySlip { get; set; }
+#pragma warning disable CS8618
+    public IndemnitySlip IndemnitySlip { get; set; }
+#pragma warning restore CS8618
 
     public required Percentage Rate { get; set; }
 
