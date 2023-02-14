@@ -23,5 +23,7 @@ public class IndemnitySlip
 
     public required EMonth Month { get; set; }
 
+    public double TotalAmount => Math.Round(Activities.Sum(static c => c.Amount) + Interventions.Sum(static c => c.Amount), 2);
+
     public required int Year { get; set; }
 }

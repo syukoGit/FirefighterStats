@@ -19,5 +19,7 @@ public class IndemnitySlipDTO
 
     public required EMonth Month { get; set; }
 
+    public required double TotalAmount { get; set; }
+
     public required int Year { get; set; }
 }
