@@ -1,0 +1,10 @@
+div.errors,
+ul.errors {
+  background: var(--light-red);
+  border: 3px solid var(--red);
+  border-radius: 5px;
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  padding: 0 10px 0 25px;
+}
