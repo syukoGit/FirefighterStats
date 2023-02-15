@@ -1,0 +1,99 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using FirefighterStats.Client.Components
+@using FirefighterStats.Client.Extensions
+@using FirefighterStats.Client.Services
+@using FirefighterStats.Shared.IndemnitySlip
+
+@attribute [Authorize]
+
+@page "/indemnity-slips"
+
+@inject ApiRequestService ApiRequestService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<PageTitle>Indemnity Slips</PageTitle>
+
+@if (!string.IsNullOrEmpty(_error))
+{
+    <ul class="errors">
+        <li>@_error</li>
+    </ul>
+}
+
+<ModalBox @bind-Visible="_modalEnabled">
+    <CreateIndemnitySlip/>
+</ModalBox>
+
+@if (_indemnitySlips == null)
+{
+    <SpinningLoading/>
+}
+else
+{
+    <div class="page-content">
+        <button class="add-button default-button"
+                onclick="@CreateNewIndemnitySlip">
+            <i class="bi bi-file-earmark-plus-fill"></i>
+        </button>
+        <div class="indemnity-slip-list">
+            @if (_indemnitySlips.Length == 0)
+            {
+                <div class="no-indemnity-slip">
+                    <text>You have no indemnity slip</text>
+                </div>
+            }
+            else
+            {
+                @foreach (IndemnitySlipDTO indemnitySlip in _indemnitySlips)
+                {
+                    <div class="indemnity-slip">
+                        <text>@indemnitySlip.Month.GetDisplayName() @indemnitySlip.Year</text>
+                        <text>@indemnitySlip.TotalAmount €</text>
+                        <i class="bi bi-box-arrow-in-right arrow"></i>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+}
+
+@code {
+
+    private bool _modalEnabled;
+
+    private string? _error;
+
+    private IndemnitySlipDTO[]? _indemnitySlips;
+
+    /// <inheritdoc />
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationState authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+        string? username = authenticationState.User.Identity?.Name;
+
+        if (string.IsNullOrEmpty(username))
+        {
+            _error = "Unable to retrieve your indemnity slips. Please try again later";
+        }
+        else
+        {
+            ApiRequestResponse<IndemnitySlipDTO[]> response = await ApiRequestService.GetFromJsonAsync<IndemnitySlipDTO[]>($"api/Firefighters/{username}/IndemnitySlips");
+
+            if (response.IsSuccess)
+            {
+                _indemnitySlips = response.Result ?? Array.Empty<IndemnitySlipDTO>();
+            }
+            else
+            {
+                _error = response.Errors;
+            }
+        }
+    }
+
+    private void CreateNewIndemnitySlip()
+    {
+        _modalEnabled = true;
+    }
+
+}

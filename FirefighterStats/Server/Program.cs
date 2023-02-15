@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System.Text;
+using System.Text.Json.Serialization;
 using FirefighterStats.Server.Data;
 using FirefighterStats.Server.Entities;
 using FirefighterStats.Server.Helpers;
@@ -41,7 +42,7 @@ builder.Services.AddAuthentication(static options =>
            };
        });
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddJsonOptions(static options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddRazorPages();
 
 WebApplication app = builder.Build();

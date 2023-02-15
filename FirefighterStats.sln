@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirefighterStats.Client", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirefighterStats.Shared", "FirefighterStats\Shared\FirefighterStats.Shared.csproj", "{81682248-0202-4FD4-BFEC-E39ED3139D51}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirefighterStats.UnitTest", "FirefighterStats\UnitTest\FirefighterStats.UnitTest.csproj", "{F67DE311-D5CF-467F-8F24-CA8EB5F1D441}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{81682248-0202-4FD4-BFEC-E39ED3139D51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81682248-0202-4FD4-BFEC-E39ED3139D51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81682248-0202-4FD4-BFEC-E39ED3139D51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F67DE311-D5CF-467F-8F24-CA8EB5F1D441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F67DE311-D5CF-467F-8F24-CA8EB5F1D441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F67DE311-D5CF-467F-8F24-CA8EB5F1D441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F67DE311-D5CF-467F-8F24-CA8EB5F1D441}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

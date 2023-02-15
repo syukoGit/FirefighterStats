@@ -19,6 +19,8 @@ public class Firefighter : IdentityUser
 
     public required string FirstName { get; set; }
 
+    public List<IndemnitySlip> IndemnitySlips { get; set; } = new ();
+
     public required string LastName { get; set; }
 
     public EFirefighterRank? Rank { get; set; }
