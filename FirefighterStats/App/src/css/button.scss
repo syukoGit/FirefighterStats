@@ -1,12 +1,12 @@
 button.default-button {
-  background: var(--red);
-  border: none;
-  border-radius: 5px;
-  color: var(--white);
-  height: 50px;
-  width: 70px;
+    background: var(--red);
+    border: none;
+    border-radius: 5px;
+    color: var(--white);
+    height: 50px;
+    width: 70px;
 
-  :hover {
-    background: var(--dark-red);
-  }
+    :hover {
+        background: var(--dark-red);
+    }
 }

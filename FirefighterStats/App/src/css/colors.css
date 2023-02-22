@@ -3,7 +3,9 @@
     --transparent-50: rgba(255, 255, 255, 0.5);
 }
 
-:root { --white: white; }
+:root {
+    --white: white;
+}
 
 :root {
     --dark-red: #c61500;
