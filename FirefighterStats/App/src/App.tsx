@@ -1,10 +1,12 @@
-import { BrowserRouter, Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './App.scss';
 import NavMenu from './components/NavMenu';
+import NotificationList from './components/NotificationList';
+import { NotificationsProvider } from './utils/contexts/NotificationsContext';
 
-function App() {
-    return (
-        <div className='app'>
+const App = () => (
+    <div className='app'>
+        <NotificationsProvider>
             <header className='app__header'>
                 <div className='app__header__logo'>
                     <img src='logo192.png' alt='logo' />
@@ -26,10 +28,10 @@ function App() {
                     </main>
                 </BrowserRouter>
 
-                <p>TODO: Notification</p>
+                <NotificationList />
             </div>
-        </div>
-    );
-}
+        </NotificationsProvider>
+    </div>
+);
 
 export default App;
