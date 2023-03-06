@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import './App.scss';
 import NavMenu from './components/NavMenu';
-import NotificationList from './components/NotificationList';
+import NotificationList from './components/notifications/NotificationList';
 import { NotificationsProvider } from './utils/contexts/NotificationsContext';
 
 const App = () => (

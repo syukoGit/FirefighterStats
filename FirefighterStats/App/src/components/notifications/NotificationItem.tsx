@@ -1,6 +1,6 @@
 import './NotificationItem.scss';
-import Notification, { ENotificationType } from '../utils/Notification';
-import useNotifications from '../utils/hooks/useNotifications';
+import Notification, { ENotificationType } from '../../utils/Notification';
+import useNotifications from '../../utils/hooks/useNotifications';
 
 interface INotificationItemProps {
     notification: Notification;

@@ -1,6 +1,6 @@
 import './NotificationList.scss';
 import { useContext, useState } from 'react';
-import { NotificationsContext } from '../utils/contexts/NotificationsContext';
+import { NotificationsContext } from '../../utils/contexts/NotificationsContext';
 import NotificationItem from './NotificationItem';
 
 const NotificationList = () => {
