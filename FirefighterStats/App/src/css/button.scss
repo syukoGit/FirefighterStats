@@ -5,8 +5,18 @@ button.default-button {
     color: var(--white);
     height: 50px;
     width: 70px;
+    cursor: pointer;
 
-    :hover {
+    &:hover {
         background: var(--dark-red);
+    }
+
+    &--disabled {
+        background: var(--light-red);
+        pointer-events: none;
+
+        &:hover {
+            background: var(--light-red);
+        }
     }
 }
