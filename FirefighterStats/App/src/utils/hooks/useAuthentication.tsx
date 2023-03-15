@@ -1,9 +1,13 @@
 import { useContext } from 'react';
 import AuthenticationToken, { parseJwt } from '../Authentication/AuthenticationToken';
 import { AuthenticationContext } from '../contexts/AuthenticationContext';
+import { NotificationSuccess } from '../Notification';
+import useNotifications from './useNotifications';
 
 const useAuthentication = () => {
     const { token, setToken } = useContext(AuthenticationContext);
+
+    const { addNotification } = useNotifications();
 
     const setAuthToken = (jwtToken: string) => {
         const token = parseJwt(jwtToken);
@@ -27,6 +31,7 @@ const useAuthentication = () => {
 
     const logout = () => {
         setToken(undefined);
+        addNotification(NotificationSuccess('You have been logged out.'));
     };
 
     return { token, setAuthToken, isAuthenticated, logout };
