@@ -4,7 +4,7 @@ import './NavMenu.scss';
 import { ArrowBarLeft, ArrowBarRight, House, Newspaper, PersonLinesFill } from 'react-bootstrap-icons';
 
 const NavMenu = () => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(true);
 
     const toggleMenu = () => {
         setIsCollapsed(!isCollapsed);
