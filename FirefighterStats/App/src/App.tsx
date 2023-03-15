@@ -1,4 +1,5 @@
 import './App.scss';
+import LoginDisplay from './components/authentication/LoginDisplay';
 import NavMenu from './components/NavMenu';
 
 const App = () => {
@@ -9,9 +10,7 @@ const App = () => {
                     <img src='logo192.png' alt='logo' />
                     <p>FirefighterStats</p>
                 </div>
-                <div>
-                    <p>TODO: LoginDisplay</p>
-                </div>
+                <LoginDisplay />
             </header>
 
             <div className='app__body'>
