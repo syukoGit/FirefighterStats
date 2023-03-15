@@ -1,22 +1,20 @@
-import { BrowserRouter } from 'react-router-dom';
 import './App.scss';
 import NavMenu from './components/NavMenu';
-import NotificationList from './components/notifications/NotificationList';
 
-const App = () => (
-    <div className='app'>
-        <header className='app__header'>
-            <div className='app__header__logo'>
-                <img src='logo192.png' alt='logo' />
-                <p>FirefighterStats</p>
-            </div>
-            <div>
-                <p>TODO: LoginDisplay</p>
-            </div>
-        </header>
+const App = () => {
+    return (
+        <div className='app'>
+            <header className='app__header'>
+                <div className='app__header__logo'>
+                    <img src='logo192.png' alt='logo' />
+                    <p>FirefighterStats</p>
+                </div>
+                <div>
+                    <p>TODO: LoginDisplay</p>
+                </div>
+            </header>
 
-        <div className='app__body'>
-            <BrowserRouter>
+            <div className='app__body'>
                 <div className='app__body__sidebar'>
                     <NavMenu />
                 </div>
@@ -24,11 +22,9 @@ const App = () => (
                 <main className='app__body__content'>
                     <p>TODO: Content</p>
                 </main>
-            </BrowserRouter>
-
-            <NotificationList />
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default App;

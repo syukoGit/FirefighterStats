@@ -1,16 +1,30 @@
+import './index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.scss';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { NotificationsProvider } from './utils/contexts/NotificationsContext';
+import NotificationList from './components/notifications/NotificationList';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Login from './pages/authentication/Login';
+import Register from './pages/authentication/Register';
+import { AuthenticationProvider } from './utils/contexts/AuthenticationContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
     <React.StrictMode>
         <NotificationsProvider>
-            <App />
+            <AuthenticationProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path='/login' element={<Login />} />
+                        <Route path='/register' element={<Register />} />
+                        <Route path='/' element={<App />} />
+                    </Routes>
+                </BrowserRouter>
+            </AuthenticationProvider>
+            <NotificationList />
         </NotificationsProvider>
     </React.StrictMode>
 );
