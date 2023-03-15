@@ -18,7 +18,7 @@ export async function register(
     userName: string,
     password: string,
     confirmPassword: string,
-    carreerStartDate?: Date | null,
+    careerStartDate?: Date | null,
     fireStation?: string,
     registrationNumber?: string
 ): Promise<AuthenticationResponse | RegisterDataError | RegisterError | string> {
@@ -31,7 +31,7 @@ export async function register(
             userName,
             password,
             confirmPassword,
-            carreerStartDate,
+            careerStartDate,
             fireStation,
             registrationNumber,
         })
