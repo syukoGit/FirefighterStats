@@ -1,7 +1,7 @@
 import React, { createContext, useState } from 'react';
 import Notification from '../Notification';
 
-export interface INotificationsContext {
+interface INotificationsContext {
     notifications: Notification[];
     setNotifications: React.Dispatch<React.SetStateAction<Notification[]>>;
 }
