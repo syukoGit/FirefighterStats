@@ -19,7 +19,7 @@ const DateInput = ({ label, value, id, required, errorMessages, onChange }: IDat
         <div className='date-field'>
             <input
                 id={id}
-                value={value?.toISOString()}
+                value={value?.toISOString().split('T')[0]}
                 className={`date-field__input ${inputRequiredClass} ${inputInvalidClass}`}
                 type='date'
                 onChange={(e) => onChange && onChange(e)}
