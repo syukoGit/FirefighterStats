@@ -15,7 +15,7 @@ const useAuthentication = () => {
         const authToken: AuthenticationToken = {
             token: jwtToken,
             username: token.payload.sub,
-            expires: new Date(Date.now() + 60000),
+            expires: new Date(token.payload.exp * 1000),
         };
 
         const timeoutMs = authToken.expires.getTime() - new Date().getTime();
