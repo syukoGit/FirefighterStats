@@ -13,4 +13,8 @@ export function NotificationError(error: string) {
     return new Notification(error, ENotificationType.Error, false);
 }
 
+export function NotificationSuccess(message: string) {
+    return new Notification(message, ENotificationType.Success);
+}
+
 export default Notification;
