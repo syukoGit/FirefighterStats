@@ -1,10 +1,10 @@
-div.horizontal-separator {
+.horizontal-separator {
     border: 1px solid;
     height: 0;
     justify-self: stretch;
 }
 
-div.vertical-separator {
+.vertical-separator {
     align-self: stretch;
     border: 1px solid;
     width: 0;
