@@ -2,8 +2,8 @@ import { createContext, useState } from 'react';
 import AuthenticationToken from '../Authentication/AuthenticationToken';
 
 interface IAuthenticationContext {
-    token?: AuthenticationToken;
-    setToken: React.Dispatch<React.SetStateAction<AuthenticationToken | undefined>>;
+    authenticationState?: AuthenticationToken;
+    setAuthenticationState: React.Dispatch<React.SetStateAction<AuthenticationToken | undefined>>;
 }
 
 interface IAuthenticationProps {
@@ -11,12 +11,16 @@ interface IAuthenticationProps {
 }
 
 export const AuthenticationContext = createContext<IAuthenticationContext>({
-    token: undefined,
-    setToken: () => {},
+    authenticationState: undefined,
+    setAuthenticationState: () => {},
 });
 
 export const AuthenticationProvider = ({ children }: IAuthenticationProps) => {
-    const [token, setToken] = useState<AuthenticationToken | undefined>(undefined);
+    const [authenticationState, setAuthenticationState] = useState<AuthenticationToken | undefined>(undefined);
 
-    return <AuthenticationContext.Provider value={{ token, setToken }}>{children}</AuthenticationContext.Provider>;
+    return (
+        <AuthenticationContext.Provider value={{ authenticationState: authenticationState, setAuthenticationState: setAuthenticationState }}>
+            {children}
+        </AuthenticationContext.Provider>
+    );
 };

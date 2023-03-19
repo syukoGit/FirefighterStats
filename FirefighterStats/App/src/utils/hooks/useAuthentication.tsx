@@ -5,7 +5,7 @@ import { NotificationSuccess } from '../Notification';
 import useNotifications from './useNotifications';
 
 const useAuthentication = () => {
-    const { token, setToken } = useContext(AuthenticationContext);
+    const { authenticationState, setAuthenticationState } = useContext(AuthenticationContext);
 
     const { addNotification } = useNotifications();
 
@@ -24,17 +24,17 @@ const useAuthentication = () => {
             logout();
         }, timeoutMs);
 
-        setToken(authToken);
+        setAuthenticationState(authToken);
     };
 
-    const isAuthenticated = () => token !== undefined;
+    const isAuthenticated = () => authenticationState !== undefined;
 
     const logout = () => {
-        setToken(undefined);
+        setAuthenticationState(undefined);
         addNotification(NotificationSuccess('You have been logged out.'));
     };
 
-    return { token, setAuthToken, isAuthenticated, logout };
+    return { authenticationState, setAuthToken, isAuthenticated, logout };
 };
 
 export default useAuthentication;

@@ -4,15 +4,15 @@ import useAuthentication from '../../utils/hooks/useAuthentication';
 import { useNavigate } from 'react-router-dom';
 
 const LoginDisplay = () => {
-    const { token, logout } = useAuthentication();
+    const { authenticationState, logout } = useAuthentication();
     const navigate = useNavigate();
 
     return (
         <div className='login-display'>
             <PersonFill className='login-display__user-icon' />
-            {token !== undefined ? (
+            {authenticationState !== undefined ? (
                 <div className='login-display__menu'>
-                    <p className='login-display__menu__authentication-state'>Signed in as {token.username}</p>
+                    <p className='login-display__menu__authentication-state'>Signed in as {authenticationState.username}</p>
                     <div className='horizontal-separator login-display__menu__separator'></div>
                     <button onClick={() => navigate('/profile')} type='button'>
                         Your profile
