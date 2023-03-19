@@ -144,7 +144,6 @@ const Register = () => {
                                 errorMessages={careerStartDateErrors}
                                 onChange={(e) => {
                                     setCareerStartDateErrors(undefined);
-                                    console.log(e.target.value);
                                     setCareerStartDate(new Date(e.target.value));
                                 }}
                             />
