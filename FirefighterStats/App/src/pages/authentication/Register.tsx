@@ -4,7 +4,7 @@ import TextInput from '../../components/inputs/TextInput';
 import Accordion from '../../components/Accordion';
 import DateInput from '../../components/inputs/DateInput';
 import SelectInput from '../../components/inputs/SelectInput';
-import EFirefighterRank, { getDisplayName } from '../../utils/FirefighterRank';
+import EFirefighterRank, { getDisplayName } from '../../types/EFirefighterRank';
 import { Link, useNavigate } from 'react-router-dom';
 import useNotifications from '../../utils/hooks/useNotifications';
 import { NotificationError, NotificationSuccess } from '../../utils/Notification';
