@@ -9,8 +9,11 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './pages/authentication/Login';
 import Register from './pages/authentication/Register';
 import { AuthenticationProvider } from './utils/contexts/AuthenticationContext';
+import axios from 'axios';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
+axios.defaults.baseURL = 'https://localhost:7224/api/';
 
 root.render(
     <React.StrictMode>

@@ -25,7 +25,7 @@ export async function register(
     const InternalErrorMessage = 'An error occurred while trying to register. Please try again later.';
 
     return axios
-        .post('https://localhost:7224/api/Account/register', {
+        .post('Account/register', {
             firstName,
             lastName,
             userName,
@@ -58,7 +58,7 @@ export async function login(username: string, password: string): Promise<Authent
     const InternalErrorMessage = 'An error occurred while trying to log in. Please try again later.';
 
     return axios
-        .post('https://localhost:7224/api/Account/login', {
+        .post('Account/login', {
             Username: username,
             Password: password,
         })
