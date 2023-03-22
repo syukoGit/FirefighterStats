@@ -1,6 +1,6 @@
+import './NavMenu.scss';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import './NavMenu.scss';
 import { ArrowBarLeft, ArrowBarRight, House, Newspaper, PersonLinesFill } from 'react-bootstrap-icons';
 
 const NavMenu = () => {
@@ -22,7 +22,7 @@ const NavMenu = () => {
                     <House />
                     <p>Home</p>
                 </NavLink>
-                <NavLink className='nav-menu__item' to='firefighter'>
+                <NavLink className='nav-menu__item' to='firefighters'>
                     <PersonLinesFill />
                     <p>Firefighters</p>
                 </NavLink>

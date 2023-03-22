@@ -8,6 +8,10 @@
 }
 
 :root {
+    --black-25: rgba(0, 0, 0, 0.25);
+}
+
+:root {
     --dark-red: #c61500;
     --red: #fe1b00;
     --light-red: #ff7575;

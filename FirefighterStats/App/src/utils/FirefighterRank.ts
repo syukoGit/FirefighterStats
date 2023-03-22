@@ -1,6 +1,6 @@
 enum EFirefighterRank {
     Sapeur2EmeClasse = 'Sapeur 2ème classe',
-    Sapeur1EmeClasse = 'Sapeur 1ère classe',
+    Sapeur1EreClasse = 'Sapeur 1ère classe',
     Caporal = 'Caporal',
     CaporalChef = 'Caporal chef',
     Sergent = 'Sergent',
