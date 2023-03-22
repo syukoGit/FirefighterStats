@@ -2,27 +2,8 @@ import './Firefighters.scss';
 import Loader from '../components/Loader';
 import { useGet } from '../utils/hooks/useApiRequest';
 import { useEffect, useState } from 'react';
-import EFirefighterRank, { getDisplayName } from '../utils/FirefighterRank';
-
-type Firefighter = {
-    firstName: string;
-    lastName: string;
-    rank?: keyof typeof EFirefighterRank | null;
-    careerStartDate?: string | null;
-    fireStation?: string | null;
-    registrationNumber?: string | null;
-};
-
-function isFirefighter(data: any): data is Firefighter {
-    return (
-        typeof data.firstName === 'string' &&
-        typeof data.lastName === 'string' &&
-        (typeof data.rank === 'string' || data.rank === null) &&
-        (typeof data.careerStartDate === 'string' || data.careerStartDate === null) &&
-        (typeof data.fireStation === 'string' || data.fireStation === null) &&
-        (typeof data.registrationNumber === 'string' || data.registrationNumber === null)
-    );
-}
+import { getDisplayName } from '../types/EFirefighterRank';
+import Firefighter, { isFirefighter } from '../types/Firefighter';
 
 function isFirefighters(data: any): data is Firefighter[] {
     return Array.isArray(data) && data.every((c) => isFirefighter(c));
