@@ -5,6 +5,7 @@ import Firefighters from './pages/Firefighters';
 import LoginDisplay from './components/authentication/LoginDisplay';
 import NavMenu from './components/NavMenu';
 import Unauthorized from './pages/Unauthorized';
+import YourProfile from './pages/YourProfile';
 
 const App = () => (
     <div className='app'>
@@ -26,6 +27,7 @@ const App = () => (
                     <Route path='/unauthorized' element={<Unauthorized />} />
                     <Route element={<Auth />}>
                         <Route path='/firefighters' element={<Firefighters />} />
+                        <Route path='/profile' element={<YourProfile />} />
                     </Route>
                 </Routes>
             </main>

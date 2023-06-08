@@ -1,0 +1,35 @@
+.your-profile {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 5% 20%;
+    gap: 5%;
+
+    &__identity {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 0.25;
+        flex-flow: column;
+        gap: 10%;
+        color: var(--gray);
+
+        > svg {
+            width: 100px;
+            height: 100px;
+            border: 5px solid var(--red);
+            border-radius: 50%;
+            padding: 5px;
+        }
+    }
+
+    &__optional-infos {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        flex: 0.75;
+        gap: 5%;
+    }
+}
