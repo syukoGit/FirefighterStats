@@ -53,8 +53,6 @@ const YourProfile = () => {
     }
 
     const saveProfile = () => {
-        console.log('saveProfile');
-
         if (profileUpdating) {
             return;
         }
