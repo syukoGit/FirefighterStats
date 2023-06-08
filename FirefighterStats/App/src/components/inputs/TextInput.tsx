@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 interface ITextInputProps {
     id: string;
-    value?: string;
+    value?: string | null;
     label: string;
     required?: boolean;
     errorMessages?: string[];
@@ -12,7 +12,7 @@ interface ITextInputProps {
 }
 
 const TextInput = ({ label, value, id, required, errorMessages, type, onChange }: ITextInputProps) => {
-    const [modified, setModified] = useState(false);
+    const [modified, setModified] = useState(value !== undefined && value !== null && value.length > 0);
 
     const isInvalid = errorMessages !== undefined && errorMessages.length > 0;
 
@@ -34,7 +34,7 @@ const TextInput = ({ label, value, id, required, errorMessages, type, onChange }
         <div className='text-field'>
             <input
                 id={id}
-                value={value}
+                value={value ?? undefined}
                 className={`text-field__input ${inputRequiredClass} ${inputModifiedClass} ${inputInvalidClass}`}
                 type={type}
                 onChange={textChange}

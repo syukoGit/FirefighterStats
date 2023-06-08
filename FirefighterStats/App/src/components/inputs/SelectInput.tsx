@@ -2,7 +2,7 @@ import './SelectInput.scss';
 
 interface ISelectInputProps {
     id: string;
-    value?: string;
+    value?: string | null;
     label: string;
     required?: boolean;
     errorMessages?: string[];
@@ -21,7 +21,7 @@ const SelectInput = ({ id, value, label, required, errorMessages, options, nulla
         <div className='select-field'>
             <select
                 id={id}
-                value={value}
+                value={value ?? undefined}
                 className={`select-field__select ${inputRequiredClass} ${inputInvalidClass}`}
                 onChange={(e) => onChange && onChange(e)}
             >
