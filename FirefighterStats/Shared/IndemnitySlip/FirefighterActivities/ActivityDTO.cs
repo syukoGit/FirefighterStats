@@ -20,7 +20,7 @@ public class ActivityDTO
 
     public required Percentage Rate { get; set; }
 
-    public virtual required DateTime StartDateTime { get; set; }
+    public required DateTime StartDateTime { get; set; }
 
     public required string Title { get; set; }
 
