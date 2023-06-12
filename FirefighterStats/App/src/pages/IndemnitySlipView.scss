@@ -1,0 +1,79 @@
+.indemnity-slip-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    min-width: 100%;
+    min-height: 100%;
+
+    &__error {
+        color: var(--red);
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    &__title {
+        color: var(--dark-gray);
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 20px;
+
+        > div {
+            width: 100%;
+            border: 3px solid var(--light-gray);
+            border-radius: 10px;
+
+            > h2 {
+                color: var(--dark-gray);
+                font-size: 20px;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+        }
+    }
+
+    &__total-amount {
+        align-self: flex-end;
+        display: flex;
+        flex-direction: row;
+        margin-top: 20px;
+        margin-right: 5px;
+        padding: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        border: 2px solid black;
+    }
+
+    &__button-bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+        margin-top: 40px;
+        padding: 20px;
+        width: 100%;
+
+        &__delete {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+        }
+    }
+}

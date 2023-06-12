@@ -42,6 +42,23 @@ export const usePut = ({ apiUrl, onSuccess, onError }: IRequestProps) => {
     return { isInProgress, makeRequest };
 };
 
+export const useDelete = ({ apiUrl, onSuccess, onError }: IRequestProps) => {
+    const [isInProgress, setIsInProgress] = useState(false);
+    const { authenticationState } = useAuthentication();
+
+    const token = authenticationState === undefined ? null : authenticationState.token;
+
+    const makeRequest = async () => {
+        setIsInProgress(true);
+
+        await request('DELETE', apiUrl, token, undefined, onSuccess, onError).finally(() => {
+            setIsInProgress(false);
+        });
+    };
+
+    return { isInProgress, makeRequest };
+};
+
 async function request(
     method: 'GET' | 'POST' | 'PUT' | 'DELETE',
     apiUrl: string,

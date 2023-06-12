@@ -3,7 +3,7 @@ import './IndemnitySlips.scss';
 import { useGet } from '../utils/hooks/useApiRequest';
 import Loader from '../components/Loader';
 import useAuthentication from '../utils/hooks/useAuthentication';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { CaretRight, PlusLg } from 'react-bootstrap-icons';
 import IndemnitySlipPreview, { isIndemnitySlipPreview } from '../types/IndemnitySlipPreview';
 
@@ -16,6 +16,7 @@ const IndemnitySlips = () => {
     const [error, setError] = useState<string>();
 
     const { authenticationState } = useAuthentication();
+    const navigate = useNavigate();
 
     const handleSuccess = (data: any) => {
         setError(undefined);
@@ -49,7 +50,7 @@ const IndemnitySlips = () => {
 
     return (
         <div className='indemnity-slips'>
-            <h1 className='indemnity-slips__title'>IndemnitySlips</h1>
+            <h1 className='indemnity-slips__title'>Indemnity slips</h1>
 
             {error && (
                 <div className='indemnity-slips__error'>
@@ -70,7 +71,7 @@ const IndemnitySlips = () => {
                     </div>
                     <div className='indemnity-slips__list__content'>
                         {indemnitySlips?.map((indemnitySlip, index) => (
-                            <div key={`indemnitySlip-${index}`} className='indemnity-slip'>
+                            <div key={`indemnitySlip-${index}`} className='indemnity-slip' onClick={() => navigate(`/indemnity-slips/${indemnitySlip.id}`)}>
                                 <p className='indemnity-slip__date'>
                                     {indemnitySlip.month} {indemnitySlip.year}
                                 </p>

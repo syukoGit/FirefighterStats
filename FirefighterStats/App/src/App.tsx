@@ -7,6 +7,7 @@ import NavMenu from './components/NavMenu';
 import Unauthorized from './pages/Unauthorized';
 import YourProfile from './pages/YourProfile';
 import IndemnitySlips from './pages/IndemnitySlips';
+import IndemnitySlipView from './pages/IndemnitySlipView';
 
 const App = () => (
     <div className='app'>
@@ -30,6 +31,7 @@ const App = () => (
                         <Route path='/firefighters' element={<Firefighters />} />
                         <Route path='/profile' element={<YourProfile />} />
                         <Route path='/indemnity-slips' element={<IndemnitySlips />} />
+                        <Route path='/indemnity-slips/:indemnitySlipId' element={<IndemnitySlipView />} />
                     </Route>
                 </Routes>
             </main>
