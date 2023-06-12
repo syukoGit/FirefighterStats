@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import './IndemnitySlips.scss';
-import { useGet } from '../utils/hooks/useApiRequest';
-import Loader from '../components/Loader';
-import useAuthentication from '../utils/hooks/useAuthentication';
+import { useGet } from '../../utils/hooks/useApiRequest';
+import Loader from '../../components/Loader';
+import useAuthentication from '../../utils/hooks/useAuthentication';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { CaretRight, PlusLg } from 'react-bootstrap-icons';
-import IndemnitySlipPreview, { isIndemnitySlipPreview } from '../types/IndemnitySlipPreview';
+import IndemnitySlipPreview, { isIndemnitySlipPreview } from '../../types/IndemnitySlipPreview';
 
 function isIndemnitySlipPreviewArray(data: any): data is IndemnitySlipPreview[] {
     return Array.isArray(data) && data.every((c) => isIndemnitySlipPreview(c));

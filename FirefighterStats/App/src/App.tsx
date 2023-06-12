@@ -6,8 +6,8 @@ import LoginDisplay from './components/authentication/LoginDisplay';
 import NavMenu from './components/NavMenu';
 import Unauthorized from './pages/Unauthorized';
 import YourProfile from './pages/YourProfile';
-import IndemnitySlips from './pages/IndemnitySlips';
-import IndemnitySlipView from './pages/IndemnitySlipView';
+import IndemnitySlips from './pages/indemnity-slips/IndemnitySlips';
+import IndemnitySlipView from './pages/indemnity-slips/IndemnitySlipView';
 
 const App = () => (
     <div className='app'>

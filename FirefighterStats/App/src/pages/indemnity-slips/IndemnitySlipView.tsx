@@ -1,16 +1,16 @@
 import './IndemnitySlipView.scss';
 import { useEffect, useState } from 'react';
-import IndemnitySlip, { isIndemnitySlip } from '../types/IndemnitySlip';
+import IndemnitySlip, { isIndemnitySlip } from '../../types/IndemnitySlip';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import useAuthentication from '../utils/hooks/useAuthentication';
-import { useDelete, useGet } from '../utils/hooks/useApiRequest';
-import Loader from '../components/Loader';
-import InterventionsView from '../components/indemnity-slips/InterventionsView';
-import ActivitiesView from '../components/indemnity-slips/ActivitiesView';
+import useAuthentication from '../../utils/hooks/useAuthentication';
+import { useDelete, useGet } from '../../utils/hooks/useApiRequest';
+import Loader from '../../components/Loader';
+import InterventionsView from '../../components/indemnity-slips/InterventionsView';
+import ActivitiesView from '../../components/indemnity-slips/ActivitiesView';
 import React from 'react';
 import { TrashFill } from 'react-bootstrap-icons';
-import useNotifications from '../utils/hooks/useNotifications';
-import { NotificationSuccess } from '../utils/Notification';
+import useNotifications from '../../utils/hooks/useNotifications';
+import { NotificationSuccess } from '../../utils/Notification';
 
 const IndemnitySlipView = () => {
     const [indemnitySlip, setIndemnitySlip] = useState<IndemnitySlip>();
