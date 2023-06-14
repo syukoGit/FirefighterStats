@@ -1,0 +1,65 @@
+.number-field {
+    background: transparent;
+    position: relative;
+    width: 100%;
+
+    &__input {
+        background: transparent;
+        border: 1px solid var(--gray);
+        border-radius: 5px;
+        color: var(--gray);
+        outline: none;
+        padding: 10px;
+        width: 100%;
+
+        &--required + label::after {
+            content: '*';
+            color: var(--red);
+        }
+
+        &--invalid {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-color: var(--red);
+
+            + label {
+                color: var(--red);
+            }
+        }
+
+        &:focus + label,
+        &--modified + label {
+            background-color: var(--white);
+            top: -10px;
+        }
+    }
+
+    &__label {
+        background: none;
+        color: var(--gray);
+        cursor: default;
+        font-size: 14px;
+        left: 8px;
+        padding: 0 5px;
+        pointer-events: none;
+        position: absolute;
+        top: 10px;
+        transition: 0.3s;
+        white-space: nowrap;
+    }
+
+    &__errors {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        background-color: var(--red);
+        border-radius: 0;
+        color: var(--white);
+        font-size: 12px;
+        padding: 5px;
+
+        &:nth-last-child(1) {
+            border-radius: 0 0 5px 5px;
+        }
+    }
+}
