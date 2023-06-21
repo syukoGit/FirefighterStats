@@ -2,6 +2,7 @@ import './InterventionsView.scss';
 import Intervention from '../../types/Intervention';
 import React from 'react';
 import { displayDateTimes } from '../../utils/DateTime';
+import EInterventionType, { getAbbreviation } from '../../types/EInterventionType';
 
 interface IInterventionsViewProps {
     interventions: Intervention[];
@@ -10,22 +11,26 @@ interface IInterventionsViewProps {
 const InterventionsView = ({ interventions }: IInterventionsViewProps) => {
     return (
         <div className='interventions-view'>
-            <h2 className='interventions-view__title'>Interventions</h2>
             <div className='interventions-view__grid'>
+                <div />
                 <div />
                 <div className='interventions-view__grid__header duration-header'>Durations (in hour)</div>
                 <div />
-                <div className='interventions-view__grid__header interventions-view__grid__header--title'>Title</div>
+                <div className='interventions-view__grid__header title-header'>Title</div>
+                <div className='interventions-view__grid__header'>Type</div>
                 <div className='interventions-view__grid__header'>Normal</div>
                 <div className='interventions-view__grid__header'>Dim. JF</div>
                 <div className='interventions-view__grid__header'>Nuit</div>
-                <div className='interventions-view__grid__header'>Total duration</div>
-                <div className='interventions-view__grid__header'>Amount €</div>
+                <div className='interventions-view__grid__header total-duration-header'>Total duration</div>
+                <div className='interventions-view__grid__header amount-header'>Amount €</div>
 
                 {interventions.map((intervention: Intervention, index: number) => (
                     <React.Fragment key={index}>
-                        <div className='interventions-view__grid__row--title'>
-                            {intervention.number} | {intervention.title} from {displayDateTimes(intervention)}
+                        <div className='interventions-view__grid__item--title'>
+                            {intervention.title} from {displayDateTimes(intervention)}
+                        </div>
+                        <div className={`interventions-view__grid__item--type interventions-view__grid__item--type--${intervention.interventionType}`}>
+                            {getAbbreviation(intervention.interventionType as keyof typeof EInterventionType)}
                         </div>
                         <div>{intervention.dayHours === 0 ? undefined : intervention.dayHours.toFixed(2)}</div>
                         <div>{intervention.specialHours === 0 ? undefined : intervention.specialHours.toFixed(2)}</div>
