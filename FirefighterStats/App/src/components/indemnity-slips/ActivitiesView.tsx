@@ -9,9 +9,8 @@ interface IActivitiesViewProps {
 const ActivitiesView = ({ activities }: IActivitiesViewProps) => {
     return (
         <div className='activities-view'>
-            <h2 className='activities-view__title'>Activities</h2>
             <div className='activities-view__grid'>
-                <div className='activities-view__grid__header activities-view__grid__header--title'>Title</div>
+                <div className='activities-view__grid__header'>Title</div>
                 <div className='activities-view__grid__header'>Duration (in hour)</div>
                 <div className='activities-view__grid__header'>Rate %</div>
                 <div className='activities-view__grid__header'>Unit amount</div>

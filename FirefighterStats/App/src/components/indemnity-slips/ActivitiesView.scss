@@ -2,13 +2,18 @@
     display: flex;
     flex-direction: column;
     padding: 10px 0;
+    width: 100%;
 
     &__grid {
         display: grid;
         grid-template-columns: 45% repeat(4, 1fr);
 
         > * {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            padding: 5px;
         }
 
         &__header {
@@ -16,12 +21,13 @@
             border: 1px solid black;
             border-right: none;
 
-            &:first {
-                border-left: none;
+            &:first-child {
+                border-radius: 5px 0 0 0;
             }
 
-            &--title {
-                border-left: none;
+            &:last-child {
+                border-right: 1px solid black;
+                border-radius: 0 5px 0 0;
             }
         }
 
@@ -34,11 +40,12 @@
         align-self: flex-end;
         display: flex;
         flex-direction: row;
-        margin-top: 20px;
+        margin-top: 30px;
         margin-right: 5px;
         padding: 5px;
         font-size: 15px;
         font-weight: bold;
         border: 2px solid black;
+        border-radius: 5px;
     }
 }
