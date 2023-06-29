@@ -2,7 +2,7 @@ import './YourProfile.scss';
 import { useEffect, useState } from 'react';
 import { PersonFill } from 'react-bootstrap-icons';
 import { Navigate } from 'react-router-dom';
-import DateInput from '../components/inputs/DateInput';
+import DateTimeInput from '../components/inputs/DateTimeInput';
 import SelectInput from '../components/inputs/SelectInput';
 import TextInput from '../components/inputs/TextInput';
 import Loader from '../components/Loader';
@@ -78,11 +78,12 @@ const YourProfile = () => {
                     onChange={(e) => setProfile({ ...profile, registrationNumber: e.target.value })}
                 />
 
-                <DateInput
+                <DateTimeInput
                     id='your-profile-career-start-date'
                     label='Career start'
                     value={profile.careerStartDate === null || profile.careerStartDate === undefined ? null : new Date(profile.careerStartDate)}
                     onChange={(e) => setProfile({ ...profile, careerStartDate: new Date(e.target.value).toISOString() })}
+                    type='date'
                 />
 
                 <TextInput

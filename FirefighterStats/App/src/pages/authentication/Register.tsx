@@ -2,7 +2,7 @@ import './Register.scss';
 import { useState } from 'react';
 import TextInput from '../../components/inputs/TextInput';
 import Accordion from '../../components/Accordion';
-import DateInput from '../../components/inputs/DateInput';
+import DateTimeInput from '../../components/inputs/DateTimeInput';
 import SelectInput from '../../components/inputs/SelectInput';
 import EFirefighterRank, { getDisplayName } from '../../types/EFirefighterRank';
 import { Link, useNavigate } from 'react-router-dom';
@@ -137,7 +137,7 @@ const Register = () => {
                     />
                     <Accordion title='Optional informations' className='register__form__optional-infos'>
                         <div className='register__form__optional-infos__content'>
-                            <DateInput
+                            <DateTimeInput
                                 id='register-form-career-start-date'
                                 value={careerStartDate}
                                 label='Career start date'
@@ -146,6 +146,7 @@ const Register = () => {
                                     setCareerStartDateErrors(undefined);
                                     setCareerStartDate(new Date(e.target.value));
                                 }}
+                                type='date'
                             />
                             <TextInput
                                 id='register-form-fire-station'
