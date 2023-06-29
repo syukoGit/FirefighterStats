@@ -9,6 +9,8 @@ type Activity = {
     unitAmount: number;
 };
 
+export type NewActivity = Omit<Activity, 'amount' | 'id'>;
+
 export function isActivity(data: any): data is Activity {
     return (
         typeof data.amount === 'number' &&
@@ -20,6 +22,14 @@ export function isActivity(data: any): data is Activity {
         typeof data.title === 'string' &&
         typeof data.unitAmount === 'number'
     );
+}
+
+export function getNewActivityPreview(newActivity: NewActivity): Activity {
+    return {
+        ...newActivity,
+        amount: Number((newActivity.durationInHours * newActivity.unitAmount * (newActivity.rate / 100)).toFixed(2)),
+        id: `new-activity-${newActivity.title}-${newActivity.startDateTime}-${newActivity.endDateTime}-preview`,
+    };
 }
 
 export default Activity;

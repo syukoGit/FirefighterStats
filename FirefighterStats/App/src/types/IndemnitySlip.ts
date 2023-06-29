@@ -1,5 +1,5 @@
-import Activity, { isActivity } from './Activity';
-import Intervention, { isIntervention } from './Intervention';
+import Activity, { isActivity, NewActivity } from './Activity';
+import Intervention, { isIntervention, NewIntervention } from './Intervention';
 import Month, { isMonth } from './Month';
 
 type IndemnitySlip = {
@@ -9,6 +9,11 @@ type IndemnitySlip = {
     totalAmount: number;
     month: Month;
     year: number;
+};
+
+export type NewIndemnitySlip = Pick<IndemnitySlip, 'month' | 'year'> & {
+    activities: NewActivity[];
+    interventions: NewIntervention[];
 };
 
 export function isIndemnitySlip(data: any): data is IndemnitySlip {

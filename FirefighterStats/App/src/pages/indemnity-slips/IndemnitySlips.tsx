@@ -64,7 +64,13 @@ const IndemnitySlips = () => {
                 <div className='indemnity-slips__list'>
                     <div className='indemnity-slips__list__header'>
                         <div className='indemnity-slips__list__header__buttons'>
-                            <button role='presentation' type='button' title='Add indemnity slip' className='default-button'>
+                            <button
+                                role='presentation'
+                                type='button'
+                                title='Add indemnity slip'
+                                className='default-button'
+                                onClick={() => navigate('/indemnity-slips/create')}
+                            >
                                 <PlusLg />
                             </button>
                         </div>

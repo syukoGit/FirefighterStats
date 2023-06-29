@@ -8,6 +8,7 @@ import Unauthorized from './pages/Unauthorized';
 import YourProfile from './pages/YourProfile';
 import IndemnitySlips from './pages/indemnity-slips/IndemnitySlips';
 import IndemnitySlipView from './pages/indemnity-slips/IndemnitySlipView';
+import NewIndemnitySlipView from './pages/indemnity-slips/NewIndemnitySlipView';
 
 const App = () => (
     <div className='app'>
@@ -31,6 +32,7 @@ const App = () => (
                         <Route path='/firefighters' element={<Firefighters />} />
                         <Route path='/profile' element={<YourProfile />} />
                         <Route path='/indemnity-slips' element={<IndemnitySlips />} />
+                        <Route path='/indemnity-slips/create' element={<NewIndemnitySlipView />} />
                         <Route path='/indemnity-slips/:indemnitySlipId' element={<IndemnitySlipView />} />
                     </Route>
                 </Routes>

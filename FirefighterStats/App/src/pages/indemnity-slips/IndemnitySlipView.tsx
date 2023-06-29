@@ -83,8 +83,14 @@ const IndemnitySlipView = () => {
                         {indemnitySlip.month} {indemnitySlip.year}
                     </h1>
                     <div className='indemnity-slip-view__content'>
-                        <InterventionsView interventions={indemnitySlip.interventions} />
-                        <ActivitiesView activities={indemnitySlip.activities} />
+                        <div className='indemnity-slip-view__content__interventions'>
+                            <h2 className='indemnity-slip-view__content__interventions__title'>Interventions</h2>
+                            <InterventionsView interventions={indemnitySlip.interventions} />
+                        </div>
+                        <div className='indemnity-slip-view__content__activities'>
+                            <h2 className='indemnity-slip-view__content__activities__title'>Activities</h2>
+                            <ActivitiesView activities={indemnitySlip.activities} />
+                        </div>
                     </div>
                     <div className='indemnity-slip-view__total-amount'>Total amount: {indemnitySlip.totalAmount}€</div>
                     <div className='indemnity-slip-view__button-bar'>

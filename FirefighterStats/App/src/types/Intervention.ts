@@ -1,11 +1,12 @@
 import EInterventionType from './EInterventionType';
+import { DefaultInterventionCalculator } from './InterventionCalculator';
 
 type Intervention = {
     amount: number;
     dayHours: number;
     endDateTime: Date;
     id: string;
-    interventionType: EInterventionType;
+    interventionType: keyof typeof EInterventionType;
     nightHours: number;
     number: number;
     specialHours: number;
@@ -14,6 +15,8 @@ type Intervention = {
     totalHours: number;
     unitAmount: number;
 };
+
+export type NewIntervention = Omit<Intervention, 'amount' | 'dayHours' | 'id' | 'nightHours' | 'specialHours' | 'totalHours'>;
 
 export function isIntervention(data: any): data is Intervention {
     return (
@@ -30,6 +33,23 @@ export function isIntervention(data: any): data is Intervention {
         typeof data.totalHours === 'number' &&
         typeof data.unitAmount === 'number'
     );
+}
+
+export function getNewInterventionPreview(newIntervention: NewIntervention): Intervention {
+    const interventionCalculator = DefaultInterventionCalculator;
+
+    const hours = interventionCalculator.calculateHours(newIntervention.startDateTime, newIntervention.endDateTime);
+    const amount = interventionCalculator.calculateAmount(newIntervention.unitAmount, hours);
+
+    return {
+        ...newIntervention,
+        amount,
+        dayHours: hours.dayTime,
+        nightHours: hours.nightTime,
+        specialHours: hours.specialTime,
+        totalHours: hours.dayTime + hours.nightTime + hours.specialTime,
+        id: `new-intervention-${newIntervention.number}-preview`,
+    };
 }
 
 export default Intervention;

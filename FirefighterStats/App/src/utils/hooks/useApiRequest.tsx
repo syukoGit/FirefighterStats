@@ -25,6 +25,23 @@ export const useGet = ({ apiUrl, onSuccess, onError }: IRequestProps) => {
     return { isDataLoading, makeRequest };
 };
 
+export const usePost = ({ apiUrl, onSuccess, onError }: IRequestProps) => {
+    const [isInProgress, setIsInProgress] = useState(false);
+    const { authenticationState } = useAuthentication();
+
+    const token = authenticationState === undefined ? null : authenticationState.token;
+
+    const makeRequest = async (data: any) => {
+        setIsInProgress(true);
+
+        await request('POST', apiUrl, token, data, onSuccess, onError).finally(() => {
+            setIsInProgress(false);
+        });
+    };
+
+    return { isInProgress, makeRequest };
+};
+
 export const usePut = ({ apiUrl, onSuccess, onError }: IRequestProps) => {
     const [isInProgress, setIsInProgress] = useState(false);
     const { authenticationState } = useAuthentication();

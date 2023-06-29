@@ -17,4 +17,8 @@ export function isMonth(data: any): data is Month {
     );
 }
 
+export function getMonths(): Month[] {
+    return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+}
+
 export default Month;
