@@ -14,8 +14,10 @@ const InterventionsView = ({ interventions }: IInterventionsViewProps) => {
             <div className='interventions-view__grid'>
                 <div />
                 <div />
+                <div />
                 <div className='interventions-view__grid__header duration-header'>Durations (in hour)</div>
                 <div />
+                <div className='interventions-view__grid__header number-header'>Number</div>
                 <div className='interventions-view__grid__header title-header'>Title</div>
                 <div className='interventions-view__grid__header'>Type</div>
                 <div className='interventions-view__grid__header'>Normal</div>
@@ -26,6 +28,7 @@ const InterventionsView = ({ interventions }: IInterventionsViewProps) => {
 
                 {interventions.map((intervention: Intervention, index: number) => (
                     <React.Fragment key={index}>
+                        <div className='interventions-view__grid__item'>{intervention.number}</div>
                         <div className='interventions-view__grid__item--title'>
                             {intervention.title} from {displayDateTimes(intervention)}
                         </div>
@@ -41,7 +44,7 @@ const InterventionsView = ({ interventions }: IInterventionsViewProps) => {
                 ))}
             </div>
             <div className='interventions-view__total-amount'>
-                Total amount: {interventions.reduce((totalAmount: number, intervention: Intervention) => totalAmount + intervention.amount, 0)} €
+                Total : {interventions.reduce((totalAmount: number, intervention: Intervention) => totalAmount + intervention.amount, 0)} €
             </div>
         </div>
     );

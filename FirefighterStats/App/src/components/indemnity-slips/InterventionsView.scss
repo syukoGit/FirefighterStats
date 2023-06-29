@@ -5,7 +5,7 @@
 
     &__grid {
         display: grid;
-        grid-template-columns: 45% 0.5fr repeat(5, 1fr);
+        grid-template-columns: 0.5fr 45% 0.5fr repeat(5, 1fr);
 
         > * {
             display: flex;
@@ -22,7 +22,8 @@
 
             &:nth-child(1),
             &:nth-child(2),
-            &:nth-child(4) {
+            &:nth-child(3),
+            &:nth-child(5) {
                 border: none;
             }
 
@@ -30,10 +31,10 @@
                 border-bottom: none;
                 border-right: 1px solid black;
                 border-radius: 5px 5px 0 0;
-                grid-column: 3 / 7;
+                grid-column: 4 / 8;
             }
 
-            &.title-header {
+            &.number-header {
                 border-radius: 5px 0 0 0;
             }
 
