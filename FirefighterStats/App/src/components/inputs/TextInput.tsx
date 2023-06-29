@@ -8,10 +8,11 @@ interface ITextInputProps {
     required?: boolean;
     errorMessages?: string[];
     type: 'text' | 'password';
+    readOnly?: boolean;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const TextInput = ({ label, value, id, required, errorMessages, type, onChange }: ITextInputProps) => {
+const TextInput = ({ label, value, id, required, errorMessages, type, readOnly, onChange }: ITextInputProps) => {
     const [modified, setModified] = useState(value !== undefined && value !== null && value.length > 0);
 
     const isInvalid = errorMessages !== undefined && errorMessages.length > 0;
@@ -38,6 +39,8 @@ const TextInput = ({ label, value, id, required, errorMessages, type, onChange }
                 className={`text-field__input ${inputRequiredClass} ${inputModifiedClass} ${inputInvalidClass}`}
                 type={type}
                 onChange={textChange}
+                required={required}
+                readOnly={readOnly}
             />
             <label className='text-field__label' htmlFor={id}>
                 {label}
