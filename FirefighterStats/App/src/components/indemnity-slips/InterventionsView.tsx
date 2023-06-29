@@ -44,7 +44,7 @@ const InterventionsView = ({ interventions }: IInterventionsViewProps) => {
                 ))}
             </div>
             <div className='interventions-view__total-amount'>
-                Total : {interventions.reduce((totalAmount: number, intervention: Intervention) => totalAmount + intervention.amount, 0)} €
+                Total : {Number(interventions.reduce((totalAmount: number, intervention: Intervention) => totalAmount + intervention.amount, 0).toFixed(2))} €
             </div>
         </div>
     );
