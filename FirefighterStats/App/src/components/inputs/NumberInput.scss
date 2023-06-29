@@ -32,6 +32,17 @@
             background-color: var(--white);
             top: -10px;
         }
+
+        &--read-only {
+            border-color: var(--light-gray);
+            color: var(--light-gray);
+            cursor: default;
+            pointer-events: none;
+
+            + label {
+                color: var(--light-gray);
+            }
+        }
     }
 
     &__label {

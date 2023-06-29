@@ -12,14 +12,16 @@ interface INumberInputProps {
 }
 
 const NumberInput = ({ label, value, id, required, readOnly, errorMessages, onChange }: INumberInputProps) => {
-    const [inputValue, setInputValue] = useState(value ?? undefined);
-    const [modified, setModified] = useState(inputValue && !isNaN(inputValue));
+    const inputValue = value ?? undefined;
+
+    const [isModified, setIsModified] = useState(inputValue !== undefined);
 
     const isInvalid = errorMessages !== undefined && errorMessages.length > 0;
 
-    const inputModifiedClass = modified ? 'number-field__input--modified' : '';
+    const inputModifiedClass = isModified ? 'number-field__input--modified' : '';
     const inputRequiredClass = required ? 'number-field__input--required' : '';
     const inputInvalidClass = isInvalid ? 'number-field__input--invalid' : '';
+    const inputReadOnlyClass = readOnly ? 'number-field__input--read-only' : '';
 
     const numberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let number: number | undefined = e.target.valueAsNumber;
@@ -29,12 +31,11 @@ const NumberInput = ({ label, value, id, required, readOnly, errorMessages, onCh
         }
 
         if (number) {
-            setModified(true);
+            setIsModified(true);
         } else {
-            setModified(false);
+            setIsModified(false);
         }
 
-        setInputValue(number);
         onChange && onChange(number);
     };
 
@@ -43,7 +44,7 @@ const NumberInput = ({ label, value, id, required, readOnly, errorMessages, onCh
             <input
                 id={id}
                 value={Number.isNaN(inputValue) ? '' : inputValue}
-                className={`number-field__input ${inputRequiredClass} ${inputModifiedClass} ${inputInvalidClass}`}
+                className={`number-field__input ${inputRequiredClass} ${inputModifiedClass} ${inputInvalidClass} ${inputReadOnlyClass}`}
                 type='number'
                 onChange={numberChange}
                 required={required}
