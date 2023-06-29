@@ -25,13 +25,14 @@
                 border-radius: 5px 0 0 0;
             }
 
-            &:last-child {
+            &.amount-header {
                 border-right: 1px solid black;
                 border-radius: 0 5px 0 0;
             }
         }
 
         &__row--title {
+            justify-content: left;
             text-align: left;
         }
     }

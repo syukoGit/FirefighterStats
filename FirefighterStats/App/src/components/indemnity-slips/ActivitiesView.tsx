@@ -1,6 +1,7 @@
 import './ActivitiesView.scss';
 import Activity from '../../types/Activity';
 import React from 'react';
+import { displayDateTimes } from '../../utils/DateTime';
 
 interface IActivitiesViewProps {
     activities: Activity[];
@@ -14,11 +15,13 @@ const ActivitiesView = ({ activities }: IActivitiesViewProps) => {
                 <div className='activities-view__grid__header'>Duration (in hour)</div>
                 <div className='activities-view__grid__header'>Rate %</div>
                 <div className='activities-view__grid__header'>Unit amount</div>
-                <div className='activities-view__grid__header'>Amount €</div>
+                <div className='activities-view__grid__header amount-header'>Amount €</div>
 
                 {activities.map((activity: Activity, index: number) => (
                     <React.Fragment key={index}>
-                        <div className='activities-view__grid__row--title'>{activity.title}</div>
+                        <div className='activities-view__grid__row--title'>
+                            {activity.title} from {displayDateTimes(activity)}
+                        </div>
                         <div>{activity.durationInHours.toFixed(2)}</div>
                         <div>{activity.rate.toFixed(2)}</div>
                         <div>{activity.unitAmount.toFixed(2)}</div>
@@ -28,7 +31,7 @@ const ActivitiesView = ({ activities }: IActivitiesViewProps) => {
             </div>
 
             <div className='activities-view__total-amount'>
-                Total amount: {activities.reduce((totalAmount: number, activity: Activity) => totalAmount + activity.amount, 0)} €
+                Total : {activities.reduce((totalAmount: number, activity: Activity) => totalAmount + activity.amount, 0)} €
             </div>
         </div>
     );
