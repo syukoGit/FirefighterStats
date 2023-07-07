@@ -1,0 +1,42 @@
+:root {
+    --transparent-25: rgba(255, 255, 255, 0.25);
+    --transparent-50: rgba(255, 255, 255, 0.5);
+}
+
+:root {
+    --white: white;
+}
+
+:root {
+    --black-25: rgba(0, 0, 0, 0.25);
+}
+
+:root {
+    --blue: #4472c4;
+    --blue-gray: #44546a;
+}
+
+:root {
+    --dark-red: #c61500;
+    --red: #fe1b00;
+    --light-red: #ff7575;
+}
+
+:root {
+    --orange: #ed7d31;
+}
+
+:root {
+    --yellow: #ffc000;
+}
+
+:root {
+    --light-gray: #909090;
+    --gray: #636363;
+}
+
+:root {
+    --light-green: #2cf46c;
+    --green: #02cd43;
+    --dark-green: #00a033;
+}

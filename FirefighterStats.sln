@@ -5,8 +5,6 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirefighterStats.Server", "FirefighterStats\Server\FirefighterStats.Server.csproj", "{29A6087E-6D45-44D1-84CD-50A99FD69E0F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirefighterStats.Client", "FirefighterStats\Client\FirefighterStats.Client.csproj", "{452B13AE-51A4-43E2-96AD-28F0733C3F21}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirefighterStats.Shared", "FirefighterStats\Shared\FirefighterStats.Shared.csproj", "{81682248-0202-4FD4-BFEC-E39ED3139D51}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirefighterStats.UnitTest", "FirefighterStats\UnitTest\FirefighterStats.UnitTest.csproj", "{F67DE311-D5CF-467F-8F24-CA8EB5F1D441}"
@@ -21,10 +19,6 @@ Global
 		{29A6087E-6D45-44D1-84CD-50A99FD69E0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29A6087E-6D45-44D1-84CD-50A99FD69E0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29A6087E-6D45-44D1-84CD-50A99FD69E0F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{452B13AE-51A4-43E2-96AD-28F0733C3F21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{452B13AE-51A4-43E2-96AD-28F0733C3F21}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{452B13AE-51A4-43E2-96AD-28F0733C3F21}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{452B13AE-51A4-43E2-96AD-28F0733C3F21}.Release|Any CPU.Build.0 = Release|Any CPU
 		{81682248-0202-4FD4-BFEC-E39ED3139D51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{81682248-0202-4FD4-BFEC-E39ED3139D51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81682248-0202-4FD4-BFEC-E39ED3139D51}.Release|Any CPU.ActiveCfg = Release|Any CPU

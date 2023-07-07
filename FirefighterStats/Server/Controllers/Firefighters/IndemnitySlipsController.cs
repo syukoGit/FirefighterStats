@@ -32,7 +32,7 @@ public class IndemnitySlipsController : ControllerBase
     }
 
     [HttpGet("")]
-    public async Task<ActionResult<IEnumerable<IndemnitySlipDTO>>> GetAsync(string firefighter)
+    public async Task<ActionResult<IEnumerable<IndemnitySlipPreviewDTO>>> GetAsync(string firefighter)
     {
         ActionResult? canAccess = await CanAccessData(firefighter);
 
@@ -43,7 +43,26 @@ public class IndemnitySlipsController : ControllerBase
 
         Firefighter user = await _database.Users.AsNoTracking().Include(static c => c.IndemnitySlips).FirstAsync(x => x.UserName == firefighter);
 
-        return Ok(_mapper.Map<IEnumerable<IndemnitySlipDTO>>(user.IndemnitySlips));
+        return Ok(_mapper.Map<IEnumerable<IndemnitySlipPreviewDTO>>(user.IndemnitySlips));
+    }
+
+    [HttpGet("{indemnitySlipId}")]
+    public async Task<ActionResult<IndemnitySlipDTO>> GetAsync(string firefighter, string indemnitySlipId)
+    {
+        ActionResult? canAccess = await CanAccessData(firefighter);
+
+        if (canAccess != null)
+        {
+            return canAccess;
+        }
+
+        Firefighter user = await _database.Users.AsNoTracking().Include(static c => c.IndemnitySlips).FirstAsync(x => x.UserName == firefighter);
+
+        IndemnitySlip? indemnitySlip = user.IndemnitySlips.FirstOrDefault(x => x.Id == indemnitySlipId);
+
+        return indemnitySlip == null
+                   ? NotFound()
+                   : Ok(_mapper.Map<IndemnitySlipDTO>(indemnitySlip));
     }
 
     [HttpPost("")]

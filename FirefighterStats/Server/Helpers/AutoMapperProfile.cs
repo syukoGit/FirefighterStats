@@ -28,5 +28,9 @@ public class AutoMapperProfile : Profile
 
         CreateMap<Intervention, InterventionDTO>();
         CreateMap<CreateInterventionDTO, Intervention>();
+
+        CreateMap<IndemnitySlip, IndemnitySlipPreviewDTO>()
+            .ForMember(static dest => dest.NumberActivities, static opt => opt.MapFrom(static src => src.Activities.Count))
+            .ForMember(static dest => dest.NumberInterventions, static opt => opt.MapFrom(static src => src.Interventions.Count));
     }
 }

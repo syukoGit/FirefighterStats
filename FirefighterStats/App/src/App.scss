@@ -1,0 +1,45 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+
+    &__header {
+        background-color: var(--dark-red);
+        color: var(--white);
+        display: flex;
+        flex: initial;
+        justify-content: space-between;
+        padding: 10px;
+        padding-left: 17px;
+        width: 100vw;
+
+        &__logo {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            gap: 17px;
+
+            img {
+                height: 30px;
+                width: 30px;
+            }
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex: auto;
+        position: relative;
+
+        &__sidebar {
+            flex: initial;
+            width: min-content;
+            height: auto;
+        }
+
+        &__content {
+            flex: auto;
+        }
+    }
+}
