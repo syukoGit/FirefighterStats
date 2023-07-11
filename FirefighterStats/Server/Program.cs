@@ -51,13 +51,13 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(static c =>
 {
-    c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey,
-        Scheme = "basic",
+        Scheme = "Bearer",
         In = ParameterLocation.Header,
-        Description = "Basic Authorization header using the Bearer scheme.",
+        Description = "Bearer Authorization header using the Bearer scheme.",
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -68,7 +68,7 @@ builder.Services.AddSwaggerGen(static c =>
                 Reference = new OpenApiReference
                 {
                     Type = ReferenceType.SecurityScheme,
-                    Id = "basic",
+                    Id = "Bearer",
                 },
             },
             Array.Empty<string>()
