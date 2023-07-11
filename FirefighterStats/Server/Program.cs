@@ -90,10 +90,11 @@ else
 
 app.UseHttpsRedirection();
 
+app.UseCors(static c => c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseCors(static c => c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.MapControllers();
 
