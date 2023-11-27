@@ -19,25 +19,12 @@ using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AccountController : ControllerBase
+public class AccountController(IConfiguration configuration, UserManager<Firefighter> userManager, SignInManager<Firefighter> signInManager) : ControllerBase
 {
-    private readonly IConfiguration _configuration;
-
-    private readonly SignInManager<Firefighter> _signInManager;
-
-    private readonly UserManager<Firefighter> _userManager;
-
-    public AccountController(IConfiguration configuration, UserManager<Firefighter> userManager, SignInManager<Firefighter> signInManager)
-    {
-        _configuration = configuration;
-        _userManager = userManager;
-        _signInManager = signInManager;
-    }
-
     [HttpPost("login")]
     public async Task<ActionResult<LoginResultDTO>> Login([FromBody] LoginDTO login)
     {
-        SignInResult result = await _signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, false);
+        SignInResult result = await signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, false);
 
         if (result.Succeeded)
         {
@@ -67,7 +54,7 @@ public class AccountController : ControllerBase
             RegistrationNumber = register.RegistrationNumber,
         };
 
-        IdentityResult result = await _userManager.CreateAsync(user, register.Password);
+        IdentityResult result = await userManager.CreateAsync(user, register.Password);
 
         if (result.Succeeded)
         {
@@ -91,10 +78,10 @@ public class AccountController : ControllerBase
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? string.Empty));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"] ?? string.Empty));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        return new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims, expires: DateTime.Now.AddHours(2),
+        return new JwtSecurityToken(configuration["Jwt:Issuer"], configuration["Jwt:Audience"], claims, expires: DateTime.Now.AddHours(2),
                                     signingCredentials: credentials);
     }
 }
