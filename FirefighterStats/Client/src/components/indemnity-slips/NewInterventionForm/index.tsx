@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import EInterventionType, { getDisplayName } from '../../../types/EInterventionType';
-import './NewInterventionForm.scss';
+import './style.scss';
 import TextInput from '../../inputs/TextInput';
 import DateTimeInput from '../../inputs/DateTimeInput';
 import NumberInput from '../../inputs/NumberInput';

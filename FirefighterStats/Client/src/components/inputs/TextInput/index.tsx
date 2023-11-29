@@ -1,4 +1,4 @@
-import './TextInput.scss';
+import './style.scss';
 import { useState } from 'react';
 
 interface ITextInputProps {

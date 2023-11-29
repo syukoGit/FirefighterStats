@@ -129,7 +129,7 @@ const NewIndemnitySlipView = () => {
                 </div>
                 <div className='new-indemnity-slip__form__interventions'>
                     <h2 className='new-indemnity-slip__form__interventions__title'>Interventions</h2>
-                    <InterventionsView interventions={newIndemnitySlip.interventions.map((newIntervention) => getNewInterventionPreview(newIntervention))} />
+                    <InterventionsView interventions={newIndemnitySlip.interventions} />
                     <button className='default-button new-indemnity-slip__form__interventions__add-button' onClick={() => setIsAddingNewIntervention(true)}>
                         <PlusLg />
                     </button>
