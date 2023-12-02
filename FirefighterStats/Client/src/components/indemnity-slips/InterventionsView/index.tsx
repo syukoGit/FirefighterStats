@@ -1,14 +1,22 @@
 import './style.scss';
-import Intervention from '../../../types/Intervention';
+import Intervention, { NewIntervention, getNewInterventionPreview, isIntervention } from '../../../types/Intervention';
 import React from 'react';
 import { displayDateTimes } from '../../../utils/DateTime';
 import EInterventionType, { getAbbreviation } from '../../../types/EInterventionType';
 
 interface IInterventionsViewProps {
-    interventions: Intervention[];
+    interventions: (Intervention | NewIntervention)[];
 }
 
 const InterventionsView = ({ interventions }: IInterventionsViewProps) => {
+    const interventionsToDisplay = interventions.map((intervention) => {
+        if (isIntervention(intervention)) {
+            return intervention;
+        } else {
+            return getNewInterventionPreview(intervention);
+        }
+    });
+
     return (
         <div className='interventions-view'>
             <div className='interventions-view__grid'>
@@ -26,7 +34,7 @@ const InterventionsView = ({ interventions }: IInterventionsViewProps) => {
                 <div className='interventions-view__grid__header total-duration-header'>Total duration</div>
                 <div className='interventions-view__grid__header amount-header'>Amount €</div>
 
-                {interventions.map((intervention: Intervention, index: number) => (
+                {interventionsToDisplay.map((intervention: Intervention, index: number) => (
                     <React.Fragment key={index}>
                         <div className='interventions-view__grid__item'>{intervention.number}</div>
                         <div className='interventions-view__grid__item--title'>
@@ -44,7 +52,8 @@ const InterventionsView = ({ interventions }: IInterventionsViewProps) => {
                 ))}
             </div>
             <div className='interventions-view__total-amount'>
-                Total : {Number(interventions.reduce((totalAmount: number, intervention: Intervention) => totalAmount + intervention.amount, 0).toFixed(2))} €
+                Total :{' '}
+                {Number(interventionsToDisplay.reduce((totalAmount: number, intervention: Intervention) => totalAmount + intervention.amount, 0).toFixed(2))} €
             </div>
         </div>
     );

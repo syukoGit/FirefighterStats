@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import useAuthentication from './useAuthentication';
+import AppError from '../AppError';
 
 interface IRequestProps {
     apiUrl: string;
@@ -97,6 +98,11 @@ async function request(
         .catch((error) => {
             console.error('Api request error:');
             console.log(error);
+
+            if (error instanceof AppError && error.details !== undefined) {
+                console.log(error.details);
+            }
+
             onError && onError(error);
         });
 }

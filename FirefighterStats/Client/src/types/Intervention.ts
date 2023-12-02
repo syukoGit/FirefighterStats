@@ -1,6 +1,6 @@
 import ECalculatorVersion from './ECalculatorVersion';
 import EInterventionType from './EInterventionType';
-import { DefaultInterventionCalculator } from './InterventionCalculator';
+import { getInterventionCalculator } from './InterventionCalculator';
 
 type Intervention = {
     amount: number;
@@ -39,7 +39,7 @@ export function isIntervention(data: any): data is Intervention {
 }
 
 export function getNewInterventionPreview(newIntervention: NewIntervention): Intervention {
-    const interventionCalculator = DefaultInterventionCalculator;
+    const interventionCalculator = getInterventionCalculator(newIntervention.calculatorVersion);
 
     const hours = interventionCalculator.calculateHours(newIntervention.startDateTime, newIntervention.endDateTime);
     const amount = interventionCalculator.calculateAmount(newIntervention.unitAmount, hours);

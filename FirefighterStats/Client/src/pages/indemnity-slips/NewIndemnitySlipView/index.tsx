@@ -13,10 +13,11 @@ import ActivitiesView from '../../../components/indemnity-slips/ActivitiesView';
 import { getNewActivityPreview } from '../../../types/Activity';
 import NewActivityForm from '../../../components/indemnity-slips/NewActivityForm';
 import useAuthentication from '../../../utils/hooks/useAuthentication';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { usePost } from '../../../utils/hooks/useApiRequest';
 import useNotifications from '../../../utils/hooks/useNotifications';
 import { NotificationError } from '../../../utils/Notification';
+import AppError from '../../../utils/AppError';
 
 const NewIndemnitySlipView = () => {
     const [newIndemnitySlip, setNewIndemnitySlip] = useState<NewIndemnitySlip>({
@@ -31,19 +32,19 @@ const NewIndemnitySlipView = () => {
 
     const { authenticationState } = useAuthentication();
     const { addNotification } = useNotifications();
+    const navigate = useNavigate();
 
     const handleSuccess = (data: any) => {
         if (isIndemnitySlip(data)) {
-            console.log(data);
-            Navigate({ to: '/indemnity-slips' });
+            navigate('/indemnity-slips');
         } else {
-            addNotification(NotificationError('Internal error. Please retry on later.'));
+            throw new AppError('Invalid data received from server.', data);
         }
     };
 
     const handleError = (error: any) => {
-        if (typeof error === 'string') {
-            addNotification(NotificationError(error));
+        if (error instanceof AppError) {
+            addNotification(NotificationError(error.message));
         } else {
             addNotification(NotificationError('Internal error. Please retry on later.'));
         }
@@ -67,7 +68,7 @@ const NewIndemnitySlipView = () => {
     });
 
     if (apiUrl === 'NA') {
-        Navigate({ to: '/unauthorized' });
+        navigate('/unauthorized');
     }
 
     const onClick = () => {

@@ -10,10 +10,12 @@ import Login from './pages/authentication/Login';
 import Register from './pages/authentication/Register';
 import { AuthenticationProvider } from './utils/contexts/AuthenticationContext';
 import axios from 'axios';
+import dateTransformer from './utils/DateTransformer';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 axios.defaults.baseURL = 'https://localhost:7224/api/';
+axios.defaults.transformRequest = [dateTransformer].concat(axios.defaults.transformRequest ?? []);
 
 root.render(
     <React.StrictMode>

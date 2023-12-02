@@ -1,13 +1,21 @@
 import './style.scss';
-import Activity from '../../../types/Activity';
+import Activity, { NewActivity, getNewActivityPreview, isActivity } from '../../../types/Activity';
 import React from 'react';
 import { displayDateTimes } from '../../../utils/DateTime';
 
 interface IActivitiesViewProps {
-    activities: Activity[];
+    activities: (Activity | NewActivity)[];
 }
 
 const ActivitiesView = ({ activities }: IActivitiesViewProps) => {
+    const activitiesToDisplay = activities.map((activity) => {
+        if (isActivity(activity)) {
+            return activity;
+        } else {
+            return getNewActivityPreview(activity);
+        }
+    });
+
     return (
         <div className='activities-view'>
             <div className='activities-view__grid'>
@@ -17,7 +25,7 @@ const ActivitiesView = ({ activities }: IActivitiesViewProps) => {
                 <div className='activities-view__grid__header'>Unit amount</div>
                 <div className='activities-view__grid__header amount-header'>Amount €</div>
 
-                {activities.map((activity: Activity, index: number) => (
+                {activitiesToDisplay.map((activity: Activity, index: number) => (
                     <React.Fragment key={index}>
                         <div className='activities-view__grid__row--title'>
                             {activity.title} from {displayDateTimes(activity)}
@@ -31,7 +39,7 @@ const ActivitiesView = ({ activities }: IActivitiesViewProps) => {
             </div>
 
             <div className='activities-view__total-amount'>
-                Total : {activities.reduce((totalAmount: number, activity: Activity) => totalAmount + activity.amount, 0)} €
+                Total : {activitiesToDisplay.reduce((totalAmount: number, activity: Activity) => totalAmount + activity.amount, 0)} €
             </div>
         </div>
     );

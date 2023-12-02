@@ -6,7 +6,7 @@ import DateTimeInput from '../../inputs/DateTimeInput';
 import NumberInput from '../../inputs/NumberInput';
 import SelectInput from '../../inputs/SelectInput';
 import { NewIntervention } from '../../../types/Intervention';
-import { DefaultInterventionCalculator } from '../../../types/InterventionCalculator';
+import { getInterventionCalculator } from '../../../types/InterventionCalculator';
 import ECalculatorVersion from '../../../types/ECalculatorVersion';
 
 interface INewInterventionFormProps {
@@ -26,7 +26,7 @@ const NewInterventionForm = ({ defaultStartDateTime = new Date(), defaultEndDate
         number: NaN,
     });
 
-    const interventionCalculator = DefaultInterventionCalculator;
+    const interventionCalculator = getInterventionCalculator(newIntervention.calculatorVersion);
 
     const [errors, setErrors] = useState<{
         titleError?: string;
