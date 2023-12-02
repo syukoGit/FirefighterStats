@@ -20,6 +20,6 @@ public partial class RequiresUppercaseLetterAttribute : ValidationAttribute
                    : new ValidationResult("Password must be contains a uppercase letter.");
     }
 
-    [GeneratedRegex(@"[A-Z]")]
+    [GeneratedRegex("[A-Z]")]
     private static partial Regex RegexPattern();
 }

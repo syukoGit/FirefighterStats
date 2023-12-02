@@ -17,7 +17,7 @@ namespace FirefighterStats.Server.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.2")
+                .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -145,6 +145,9 @@ namespace FirefighterStats.Server.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CalculatorVersion")
+                        .HasColumnType("int");
 
                     b.Property<double>("DayHours")
                         .HasColumnType("float");

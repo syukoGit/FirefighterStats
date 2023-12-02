@@ -10,6 +10,8 @@ public class InterventionDTO
 {
     public required double Amount { get; set; }
 
+    public required ECalculatorVersion CalculatorVersion { get; set; }
+
     public required double DayHours { get; set; }
 
     public required DateTime EndDateTime { get; set; }

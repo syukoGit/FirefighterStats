@@ -11,13 +11,8 @@ using FirefighterStats.Server.Entities.FirefighterActivities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-public class ApplicationDbContext : IdentityDbContext<Firefighter>
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<Firefighter>(options)
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    {
-    }
-
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder builder)
     {

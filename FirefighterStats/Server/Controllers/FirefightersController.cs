@@ -18,38 +18,29 @@ using Microsoft.EntityFrameworkCore;
 [Route("api/[controller]")]
 [ApiController]
 [Authorize]
-public class FirefightersController : ControllerBase
+// ReSharper disable once SuggestBaseTypeForParameterInConstructor
+public class FirefightersController(ApplicationDbContext database, IMapper mapper) : ControllerBase
 {
-    private readonly ApplicationDbContext _database;
-
-    private readonly IMapper _mapper;
-
-    public FirefightersController(ApplicationDbContext database, IMapper mapper)
-    {
-        _database = database;
-        _mapper = mapper;
-    }
-
     [HttpGet("")]
     public IEnumerable<FirefighterDTO> Get()
     {
-        return _mapper.Map<List<FirefighterDTO>>(_database.Users.ToList());
+        return mapper.Map<List<FirefighterDTO>>(database.Users.ToList());
     }
 
     [HttpGet("{username}")]
     public async Task<ActionResult<FirefighterDTO>> Get(string username)
     {
-        Firefighter? firefighter = await _database.Users.FirstOrDefaultAsync(x => x.UserName == username);
+        Firefighter? firefighter = await database.Users.FirstOrDefaultAsync(x => x.UserName == username);
 
         return firefighter == null
                    ? NotFound()
-                   : _mapper.Map<FirefighterDTO>(firefighter);
+                   : mapper.Map<FirefighterDTO>(firefighter);
     }
 
     [HttpPut("{username}")]
     public async Task<ActionResult<FirefighterDTO>> Patch(string username, [FromBody] UpdateFirefighterPropsDTO patch)
     {
-        Firefighter? user = await _database.Users.FirstOrDefaultAsync(x => x.UserName == username);
+        Firefighter? user = await database.Users.FirstOrDefaultAsync(x => x.UserName == username);
 
         if (user == null)
         {
@@ -61,9 +52,9 @@ public class FirefightersController : ControllerBase
             return Unauthorized();
         }
 
-        _mapper.Map(patch, user);
-        await _database.SaveChangesAsync();
+        mapper.Map(patch, user);
+        await database.SaveChangesAsync();
 
-        return _mapper.Map<FirefighterDTO>(user);
+        return mapper.Map<FirefighterDTO>(user);
     }
 }

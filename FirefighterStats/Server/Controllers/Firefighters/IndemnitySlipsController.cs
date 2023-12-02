@@ -19,18 +19,9 @@ using Microsoft.EntityFrameworkCore;
 [Route("api/Firefighters/{firefighter}/[controller]")]
 [ApiController]
 [Authorize]
-public class IndemnitySlipsController : ControllerBase
+// ReSharper disable once SuggestBaseTypeForParameterInConstructor
+public class IndemnitySlipsController(ApplicationDbContext database, IMapper mapper) : ControllerBase
 {
-    private readonly ApplicationDbContext _database;
-
-    private readonly IMapper _mapper;
-
-    public IndemnitySlipsController(ApplicationDbContext database, IMapper mapper)
-    {
-        _database = database;
-        _mapper = mapper;
-    }
-
     [HttpGet("")]
     public async Task<ActionResult<IEnumerable<IndemnitySlipPreviewDTO>>> GetAsync(string firefighter)
     {
@@ -41,9 +32,9 @@ public class IndemnitySlipsController : ControllerBase
             return canAccess;
         }
 
-        Firefighter user = await _database.Users.AsNoTracking().Include(static c => c.IndemnitySlips).FirstAsync(x => x.UserName == firefighter);
+        Firefighter user = await database.Users.AsNoTracking().Include(static c => c.IndemnitySlips).FirstAsync(x => x.UserName == firefighter);
 
-        return Ok(_mapper.Map<IEnumerable<IndemnitySlipPreviewDTO>>(user.IndemnitySlips));
+        return Ok(mapper.Map<IEnumerable<IndemnitySlipPreviewDTO>>(user.IndemnitySlips));
     }
 
     [HttpGet("{indemnitySlipId}")]
@@ -56,13 +47,13 @@ public class IndemnitySlipsController : ControllerBase
             return canAccess;
         }
 
-        Firefighter user = await _database.Users.AsNoTracking().Include(static c => c.IndemnitySlips).FirstAsync(x => x.UserName == firefighter);
+        Firefighter user = await database.Users.AsNoTracking().Include(static c => c.IndemnitySlips).FirstAsync(x => x.UserName == firefighter);
 
         IndemnitySlip? indemnitySlip = user.IndemnitySlips.FirstOrDefault(x => x.Id == indemnitySlipId);
 
         return indemnitySlip == null
                    ? NotFound()
-                   : Ok(_mapper.Map<IndemnitySlipDTO>(indemnitySlip));
+                   : Ok(mapper.Map<IndemnitySlipDTO>(indemnitySlip));
     }
 
     [HttpPost("")]
@@ -75,15 +66,15 @@ public class IndemnitySlipsController : ControllerBase
             return canAccess;
         }
 
-        Firefighter user = await _database.Users.Include(static c => c.IndemnitySlips).FirstAsync(x => x.UserName == firefighter);
+        Firefighter user = await database.Users.Include(static c => c.IndemnitySlips).FirstAsync(x => x.UserName == firefighter);
 
-        var indemnitySlip = _mapper.Map<IndemnitySlip>(dto);
+        var indemnitySlip = mapper.Map<IndemnitySlip>(dto);
 
         user.IndemnitySlips.Add(indemnitySlip);
 
-        await _database.SaveChangesAsync();
+        await database.SaveChangesAsync();
 
-        return Ok(_mapper.Map<IndemnitySlipDTO>(indemnitySlip));
+        return Ok(mapper.Map<IndemnitySlipDTO>(indemnitySlip));
     }
 
     [HttpDelete("{indemnitySlipId}")]
@@ -96,7 +87,7 @@ public class IndemnitySlipsController : ControllerBase
             return canAccess;
         }
 
-        Firefighter user = await _database.Users.Include(static c => c.IndemnitySlips).FirstAsync(x => x.UserName == firefighter);
+        Firefighter user = await database.Users.Include(static c => c.IndemnitySlips).FirstAsync(x => x.UserName == firefighter);
 
         IndemnitySlip? indemnitySlip = user.IndemnitySlips.FirstOrDefault(c => c.Id == indemnitySlipId);
 
@@ -107,8 +98,8 @@ public class IndemnitySlipsController : ControllerBase
 
         user.IndemnitySlips.Remove(indemnitySlip);
 
-        _database.Remove(indemnitySlip);
-        await _database.SaveChangesAsync();
+        database.Remove(indemnitySlip);
+        await database.SaveChangesAsync();
 
         return Ok();
     }
@@ -123,7 +114,7 @@ public class IndemnitySlipsController : ControllerBase
             return canAccess;
         }
 
-        Firefighter user = await _database.Users.Include(static c => c.IndemnitySlips).FirstAsync(x => x.UserName == firefighter);
+        Firefighter user = await database.Users.Include(static c => c.IndemnitySlips).FirstAsync(x => x.UserName == firefighter);
 
         IndemnitySlip? indemnitySlip = user.IndemnitySlips.FirstOrDefault(c => c.Id == indemnitySlipId);
 
@@ -141,7 +132,7 @@ public class IndemnitySlipsController : ControllerBase
 
         indemnitySlip.Activities.Remove(activity);
 
-        await _database.SaveChangesAsync();
+        await database.SaveChangesAsync();
 
         return Ok();
     }
@@ -156,7 +147,7 @@ public class IndemnitySlipsController : ControllerBase
             return canAccess;
         }
 
-        Firefighter user = await _database.Users.Include(static c => c.IndemnitySlips).FirstAsync(x => x.UserName == firefighter);
+        Firefighter user = await database.Users.Include(static c => c.IndemnitySlips).FirstAsync(x => x.UserName == firefighter);
 
         IndemnitySlip? indemnitySlip = user.IndemnitySlips.FirstOrDefault(c => c.Id == indemnitySlipId);
 
@@ -174,14 +165,14 @@ public class IndemnitySlipsController : ControllerBase
 
         indemnitySlip.Interventions.Remove(intervention);
 
-        await _database.SaveChangesAsync();
+        await database.SaveChangesAsync();
 
         return Ok();
     }
 
     private async Task<ActionResult?> CanAccessData(string firefighter)
     {
-        Firefighter? user = await _database.Users.AsNoTracking().FirstOrDefaultAsync(x => x.UserName == firefighter);
+        Firefighter? user = await database.Users.AsNoTracking().FirstOrDefaultAsync(x => x.UserName == firefighter);
 
         return user == null
                    ? NotFound($"User {firefighter} not found")

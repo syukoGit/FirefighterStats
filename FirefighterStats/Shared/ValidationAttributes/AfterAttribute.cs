@@ -10,15 +10,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 [AttributeUsage(AttributeTargets.Property)]
-public class AfterAttribute : ValidationAttribute
+public class AfterAttribute(string propertyName) : ValidationAttribute
 {
-    private readonly string _propertyName;
-
-    public AfterAttribute(string propertyName)
-    {
-        _propertyName = propertyName;
-    }
-
     /// <inheritdoc />
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
@@ -30,7 +23,7 @@ public class AfterAttribute : ValidationAttribute
         object instance = validationContext.ObjectInstance;
         Type instanceType = validationContext.ObjectType;
 
-        PropertyInfo? property = instanceType.GetProperty(_propertyName);
+        PropertyInfo? property = instanceType.GetProperty(propertyName);
 
         if (property == null)
         {
@@ -41,6 +34,6 @@ public class AfterAttribute : ValidationAttribute
 
         return propertyValue is not DateTime beforeDateTime || beforeDateTime < afterDateTime
                    ? ValidationResult.Success
-                   : new ValidationResult($"{validationContext.DisplayName} must be after {_propertyName}");
+                   : new ValidationResult($"{validationContext.DisplayName} must be after {propertyName}");
     }
 }
