@@ -10,6 +10,8 @@ using FirefighterStats.Shared.ValidationAttributes;
 
 public class CreateInterventionDTO
 {
+    public required ECalculatorVersion CalculatorVersion { get; set; }
+
     [After(nameof(StartDateTime))]
     public required DateTime EndDateTime { get; set; }
 

@@ -7,6 +7,7 @@
 namespace FirefighterStats.Server.Entities.FirefighterActivities;
 
 using System.ComponentModel.DataAnnotations;
+using FirefighterStats.Server.Helpers.Calculators;
 using FirefighterStats.Shared.IndemnitySlip.FirefighterActivities;
 using FirefighterStats.Shared.Utils;
 using JetBrains.Annotations;
@@ -20,11 +21,27 @@ public class Intervention
 
     private static readonly Percentage s_specialRate = "150%";
 
+    private Calculator _calculator = new CalculatorV2();
+
+    private ECalculatorVersion _calculatorVersion;
+
     private DateTime _endDateTime = DateTime.MinValue;
 
     private DateTime _startDateTime = DateTime.MinValue;
 
     public double Amount => Math.Round((DayHours * s_dayRate + NightHours * s_nightRate + SpecialHours * s_specialRate) * UnitAmount, 2);
+
+    public ECalculatorVersion CalculatorVersion
+    {
+        get => _calculatorVersion;
+
+        set
+        {
+            _calculatorVersion = value;
+
+            _calculator = Calculator.CreateCalculator(value);
+        }
+    }
 
     public double DayHours { get; private set; }
 
@@ -73,37 +90,6 @@ public class Intervention
 
     private void CalculateHours()
     {
-        if (StartDateTime == DateTime.MinValue || EndDateTime == DateTime.MinValue)
-        {
-            return;
-        }
-
-        var nightMinutes = 0;
-        var specialMinutes = 0;
-        var dayMinutes = 0;
-
-        DateTime start = StartDateTime;
-
-        while (start < EndDateTime)
-        {
-            if (start.Hour is < 7 or >= 22)
-            {
-                nightMinutes++;
-            }
-            else if (start.DayOfWeek == DayOfWeek.Sunday)
-            {
-                specialMinutes++;
-            }
-            else
-            {
-                dayMinutes++;
-            }
-
-            start = start.AddMinutes(1);
-        }
-
-        NightHours = Math.Round(nightMinutes / 60.0, 2);
-        SpecialHours = Math.Round(specialMinutes / 60.0, 2);
-        DayHours = Math.Round(dayMinutes / 60.0, 2);
+        (DayHours, SpecialHours, NightHours) = _calculator.CalculateHours(StartDateTime, EndDateTime);
     }
 }
