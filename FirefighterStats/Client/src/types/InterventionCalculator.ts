@@ -24,6 +24,10 @@ export const InterventionCalculatorV1: IInterventionCalculator = {
             dayTimeInMinutes += 30;
         }
 
+        if (specialTimeInMinutes > 0) {
+            specialTimeInMinutes += 30;
+        }
+
         const dayTime = Number((dayTimeInMinutes / 60).toFixed(2));
         const nightTime = Number((nightTimeInMinutes / 60).toFixed(2));
         const specialTime = Number((specialTimeInMinutes / 60).toFixed(2));
