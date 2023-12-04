@@ -45,6 +45,11 @@ public class CalculatorV1 : Calculator
             dayMinutes += 30;
         }
 
+        if (specialMinutes > 0)
+        {
+            specialMinutes += 30;
+        }
+
         double nightHours = Math.Round(nightMinutes / 60.0, 2);
         double specialHours = Math.Round(specialMinutes / 60.0, 2);
         double dayHours = Math.Round(dayMinutes / 60.0, 2);
