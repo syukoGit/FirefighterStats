@@ -15,7 +15,6 @@ const NewActivityForm = ({ defaultStartDateTime = new Date(), defaultEndDateTime
     const [newActivity, setNewActivity] = useState<NewActivity>({
         title: '',
         rate: 0,
-        durationInHours: 0,
         startDateTime: defaultStartDateTime,
         endDateTime: defaultEndDateTime,
         unitAmount: 7.92,
@@ -37,10 +36,12 @@ const NewActivityForm = ({ defaultStartDateTime = new Date(), defaultEndDateTime
         unitAmountError: undefined,
     });
 
-    const amount =
-        isNaN(newActivity.durationInHours) || isNaN(newActivity.rate)
+    const durationInHours =
+        isNaN(newActivity.startDateTime.getTime()) || isNaN(newActivity.endDateTime.getTime())
             ? 0
-            : Number((newActivity.durationInHours * newActivity.unitAmount * (newActivity.rate / 100)).toFixed(2));
+            : (newActivity.endDateTime.getTime() - newActivity.startDateTime.getTime()) / 3600000;
+
+    const amount = isNaN(newActivity.rate) ? 0 : Number((durationInHours * newActivity.unitAmount * (newActivity.rate / 100)).toFixed(2));
 
     const onSaveClick = () => {
         let hasError = false;
@@ -59,11 +60,6 @@ const NewActivityForm = ({ defaultStartDateTime = new Date(), defaultEndDateTime
 
         if (isNaN(newActivity.rate)) {
             rateError = 'Rate is required';
-            hasError = true;
-        }
-
-        if (isNaN(newActivity.durationInHours)) {
-            durationInHoursError = 'Duration is required';
             hasError = true;
         }
 
@@ -154,14 +150,6 @@ const NewActivityForm = ({ defaultStartDateTime = new Date(), defaultEndDateTime
                     type='datetime-local'
                     id='new-activity-form-end-date'
                     errorMessages={errors.endDateError ? [errors.endDateError] : undefined}
-                />
-                <NumberInput
-                    label='Duration in hour'
-                    value={newActivity.durationInHours}
-                    onChange={(e) => setNewActivity({ ...newActivity, durationInHours: e ?? NaN })}
-                    required
-                    id='new-activity-form-duration-in-hour'
-                    errorMessages={errors.durationInHoursError ? [errors.durationInHoursError] : undefined}
                 />
                 <NumberInput
                     label='Rate'

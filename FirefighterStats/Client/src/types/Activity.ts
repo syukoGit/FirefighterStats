@@ -1,7 +1,7 @@
 type Activity = {
     amount: number;
-    durationInHours: number;
     endDateTime: Date;
+    durationInHours: number;
     id: string;
     rate: number;
     startDateTime: Date;
@@ -9,7 +9,7 @@ type Activity = {
     unitAmount: number;
 };
 
-export type NewActivity = Omit<Activity, 'amount' | 'id'>;
+export type NewActivity = Omit<Activity, 'amount' | 'id' | 'durationInHours'>;
 
 export function isActivity(data: any): data is Activity {
     return (
@@ -25,9 +25,12 @@ export function isActivity(data: any): data is Activity {
 }
 
 export function getNewActivityPreview(newActivity: NewActivity): Activity {
+    const durationInHours = Math.abs(newActivity.endDateTime.getTime() - newActivity.startDateTime.getTime()) / 36e5;
+
     return {
         ...newActivity,
-        amount: Number((newActivity.durationInHours * newActivity.unitAmount * (newActivity.rate / 100)).toFixed(2)),
+        durationInHours,
+        amount: Number((durationInHours * newActivity.unitAmount * (newActivity.rate / 100)).toFixed(2)),
         id: `new-activity-${newActivity.title}-${newActivity.startDateTime}-${newActivity.endDateTime}-preview`,
     };
 }
