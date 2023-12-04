@@ -13,7 +13,7 @@ using JetBrains.Annotations;
 [UsedImplicitly]
 public class Activity
 {
-    public double Amount => Math.Round(DurationInHours * Rate * UnitAmount, 2);
+    public double Amount => Math.Round(DurationInHours * Rate * UnitAmount, 2, MidpointRounding.AwayFromZero);
 
     public double DurationInHours => (EndDateTime - StartDateTime).TotalHours;
 
